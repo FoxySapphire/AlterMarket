@@ -28,37 +28,47 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Dummy Item 1");
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Dummy Item 2");
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Dummy Item 1");
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("Dummy Item 2");
             this.panel1 = new System.Windows.Forms.Panel();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lstvwApplications = new System.Windows.Forms.ListView();
-            this.lstvwApplicationsVersions = new System.Windows.Forms.ListView();
-            this.reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.applicationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clmApplications = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.imglstApplications = new System.Windows.Forms.ImageList(this.components);
+            this.lstvwApplicationsVersions = new System.Windows.Forms.ListView();
             this.clmApplication = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clmSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.imglstApplicationsVersions = new System.Windows.Forms.ImageList(this.components);
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.applicationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.musicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.imglstApplications = new System.Windows.Forms.ImageList();
-            this.imglstApplicationsVersions = new System.Windows.Forms.ImageList();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.marqueeProgressBarControl1 = new DevExpress.XtraEditors.MarqueeProgressBarControl();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.panel1.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.marqueeProgressBarControl1.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -69,28 +79,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(609, 364);
             this.panel1.TabIndex = 0;
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this.toolStripStatusLabel2,
-            this.toolStripStatusLabel3});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 388);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(609, 22);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.reloadToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(609, 24);
-            this.menuStrip1.TabIndex = 2;
-            this.menuStrip1.Text = "menuStrip1";
             // 
             // tabControl1
             // 
@@ -137,6 +125,9 @@
             this.lstvwApplications.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.clmApplications});
             this.lstvwApplications.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstvwApplications.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1,
+            listViewItem2});
             this.lstvwApplications.Location = new System.Drawing.Point(0, 0);
             this.lstvwApplications.Name = "lstvwApplications";
             this.lstvwApplications.Size = new System.Drawing.Size(166, 332);
@@ -144,6 +135,18 @@
             this.lstvwApplications.TabIndex = 0;
             this.lstvwApplications.UseCompatibleStateImageBehavior = false;
             this.lstvwApplications.View = System.Windows.Forms.View.Details;
+            this.lstvwApplications.SelectedIndexChanged += new System.EventHandler(this.lstvwApplications_SelectedIndexChanged);
+            // 
+            // clmApplications
+            // 
+            this.clmApplications.Text = "Applications";
+            this.clmApplications.Width = 162;
+            // 
+            // imglstApplications
+            // 
+            this.imglstApplications.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imglstApplications.ImageSize = new System.Drawing.Size(16, 16);
+            this.imglstApplications.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // lstvwApplicationsVersions
             // 
@@ -151,6 +154,9 @@
             this.clmApplication,
             this.clmSize});
             this.lstvwApplicationsVersions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstvwApplicationsVersions.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem3,
+            listViewItem4});
             this.lstvwApplicationsVersions.Location = new System.Drawing.Point(0, 0);
             this.lstvwApplicationsVersions.Name = "lstvwApplicationsVersions";
             this.lstvwApplicationsVersions.Size = new System.Drawing.Size(425, 332);
@@ -158,28 +164,6 @@
             this.lstvwApplicationsVersions.TabIndex = 0;
             this.lstvwApplicationsVersions.UseCompatibleStateImageBehavior = false;
             this.lstvwApplicationsVersions.View = System.Windows.Forms.View.Details;
-            // 
-            // reloadToolStripMenuItem
-            // 
-            this.reloadToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.applicationsToolStripMenuItem,
-            this.gamesToolStripMenuItem,
-            this.musicToolStripMenuItem});
-            this.reloadToolStripMenuItem.Name = "reloadToolStripMenuItem";
-            this.reloadToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
-            this.reloadToolStripMenuItem.Text = "Reload";
-            // 
-            // applicationsToolStripMenuItem
-            // 
-            this.applicationsToolStripMenuItem.Name = "applicationsToolStripMenuItem";
-            this.applicationsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.applicationsToolStripMenuItem.Text = "Applications";
-            this.applicationsToolStripMenuItem.Click += new System.EventHandler(this.applicationsToolStripMenuItem_Click);
-            // 
-            // clmApplications
-            // 
-            this.clmApplications.Text = "Applications";
-            this.clmApplications.Width = 162;
             // 
             // clmApplication
             // 
@@ -190,6 +174,12 @@
             // 
             this.clmSize.Text = "Size";
             this.clmSize.Width = 96;
+            // 
+            // imglstApplicationsVersions
+            // 
+            this.imglstApplicationsVersions.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imglstApplicationsVersions.ImageSize = new System.Drawing.Size(16, 16);
+            this.imglstApplicationsVersions.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // tabPage2
             // 
@@ -211,35 +201,29 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Music";
             // 
-            // gamesToolStripMenuItem
+            // statusStrip1
             // 
-            this.gamesToolStripMenuItem.Name = "gamesToolStripMenuItem";
-            this.gamesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.gamesToolStripMenuItem.Text = "Games";
-            // 
-            // musicToolStripMenuItem
-            // 
-            this.musicToolStripMenuItem.Name = "musicToolStripMenuItem";
-            this.musicToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.musicToolStripMenuItem.Text = "Music";
-            // 
-            // imglstApplications
-            // 
-            this.imglstApplications.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imglstApplications.ImageSize = new System.Drawing.Size(16, 16);
-            this.imglstApplications.TransparentColor = System.Drawing.Color.Transparent;
-            // 
-            // imglstApplicationsVersions
-            // 
-            this.imglstApplicationsVersions.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imglstApplicationsVersions.ImageSize = new System.Drawing.Size(16, 16);
-            this.imglstApplicationsVersions.TransparentColor = System.Drawing.Color.Transparent;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.toolStripStatusLabel2,
+            this.toolStripStatusLabel3});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 388);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(609, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(45, 17);
             this.toolStripStatusLabel1.Text = "0 Items";
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(423, 17);
+            this.toolStripStatusLabel2.Spring = true;
             // 
             // toolStripStatusLabel3
             // 
@@ -249,11 +233,75 @@
             this.toolStripStatusLabel3.Size = new System.Drawing.Size(126, 17);
             this.toolStripStatusLabel3.Text = "Made by FoxySapphire";
             // 
-            // toolStripStatusLabel2
+            // menuStrip1
             // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(423, 17);
-            this.toolStripStatusLabel2.Spring = true;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.reloadToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(609, 24);
+            this.menuStrip1.TabIndex = 2;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // reloadToolStripMenuItem
+            // 
+            this.reloadToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.applicationsToolStripMenuItem,
+            this.gamesToolStripMenuItem,
+            this.musicToolStripMenuItem});
+            this.reloadToolStripMenuItem.Name = "reloadToolStripMenuItem";
+            this.reloadToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+            this.reloadToolStripMenuItem.Text = "Reload";
+            // 
+            // applicationsToolStripMenuItem
+            // 
+            this.applicationsToolStripMenuItem.Name = "applicationsToolStripMenuItem";
+            this.applicationsToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.applicationsToolStripMenuItem.Text = "Applications";
+            this.applicationsToolStripMenuItem.Click += new System.EventHandler(this.applicationsToolStripMenuItem_Click);
+            // 
+            // gamesToolStripMenuItem
+            // 
+            this.gamesToolStripMenuItem.Name = "gamesToolStripMenuItem";
+            this.gamesToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.gamesToolStripMenuItem.Text = "Games";
+            // 
+            // musicToolStripMenuItem
+            // 
+            this.musicToolStripMenuItem.Name = "musicToolStripMenuItem";
+            this.musicToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.musicToolStripMenuItem.Text = "Music";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.labelControl1);
+            this.panel2.Controls.Add(this.marqueeProgressBarControl1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 24);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(609, 364);
+            this.panel2.TabIndex = 3;
+            // 
+            // marqueeProgressBarControl1
+            // 
+            this.marqueeProgressBarControl1.Location = new System.Drawing.Point(240, 183);
+            this.marqueeProgressBarControl1.Name = "marqueeProgressBarControl1";
+            this.marqueeProgressBarControl1.Properties.LookAndFeel.SkinName = "VS2010";
+            this.marqueeProgressBarControl1.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.marqueeProgressBarControl1.Properties.MarqueeAnimationSpeed = 75;
+            this.marqueeProgressBarControl1.Size = new System.Drawing.Size(129, 18);
+            this.marqueeProgressBarControl1.TabIndex = 1;
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.labelControl1.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.labelControl1.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.labelControl1.Location = new System.Drawing.Point(240, 164);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(129, 13);
+            this.labelControl1.TabIndex = 2;
+            this.labelControl1.Text = "Loading, please wait...";
             // 
             // Form1
             // 
@@ -261,6 +309,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(609, 410);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.statusStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -269,16 +318,18 @@
             this.Text = "AlterMarket";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.marqueeProgressBarControl1.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -308,6 +359,9 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.Panel panel2;
+        private DevExpress.XtraEditors.MarqueeProgressBarControl marqueeProgressBarControl1;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
     }
 }
 

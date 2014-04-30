@@ -31,7 +31,7 @@ namespace AlterMarket.logic
         {
             public string Id { get; set; }
             public string Name { get; set; }
-            public string Icon { get; set; }
+            public string Icon { get; set; }    
             public string Description { get; set; }
             public List<Versions> Versions { get; set; }
         }
