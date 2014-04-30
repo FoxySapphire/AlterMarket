@@ -45,6 +45,8 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.gamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.musicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imglstApplications = new System.Windows.Forms.ImageList();
+            this.imglstApplicationsVersions = new System.Windows.Forms.ImageList();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -130,6 +132,7 @@
             this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(166, 332);
+            this.listView1.SmallImageList = this.imglstApplications;
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -143,6 +146,7 @@
             this.listView2.Location = new System.Drawing.Point(0, 0);
             this.listView2.Name = "listView2";
             this.listView2.Size = new System.Drawing.Size(425, 332);
+            this.listView2.SmallImageList = this.imglstApplicationsVersions;
             this.listView2.TabIndex = 0;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.View = System.Windows.Forms.View.Details;
@@ -210,6 +214,18 @@
             this.musicToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.musicToolStripMenuItem.Text = "Music";
             // 
+            // imglstApplications
+            // 
+            this.imglstApplications.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imglstApplications.ImageSize = new System.Drawing.Size(16, 16);
+            this.imglstApplications.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // imglstApplicationsVersions
+            // 
+            this.imglstApplicationsVersions.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imglstApplicationsVersions.ImageSize = new System.Drawing.Size(16, 16);
+            this.imglstApplicationsVersions.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -255,6 +271,8 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.ToolStripMenuItem gamesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem musicToolStripMenuItem;
+        private System.Windows.Forms.ImageList imglstApplications;
+        private System.Windows.Forms.ImageList imglstApplicationsVersions;
     }
 }
 
