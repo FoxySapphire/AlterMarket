@@ -82,11 +82,40 @@ namespace AlterMarket
                 // Clear the items collection to prevent double items.
                 lstvwApplications.Items.Clear();
                 // Scan through the collection of items.
-                foreach (var application in Collections.ListApplications)
+                for (int index = 0; index < Collections.ListApplications.Count; index++)
                 {
-                    Console.WriteLine("Applications: " + application.Name);
+                    // The application we are adding.
+                    Collections.Items application = Collections.ListApplications[index];
+
+                    // Create the ListViewItem.
+                    ListViewItem lvitem = new ListViewItem();
+
+                    // Set the ListViewItem's text.
+                    lvitem.Text = application.Name;
+                    // Tell where to put the image.
+                    lvitem.ImageIndex = index;
+
+                    // Check if the application contains an icon
+                    if (!string.IsNullOrEmpty(application.Icon))
+                    {
+                        // Download and add the image for the imagelist.
+                        using (WebClient webClient = new WebClient())
+                        {
+                            byte[] bitmapData = webClient.DownloadData(application.Icon);
+
+                            // Bitmap data => bitmap => resized bitmap.
+                            using (MemoryStream memoryStream = new MemoryStream(bitmapData))
+                            using (Bitmap bitmap = new Bitmap(memoryStream))
+                            using (Bitmap resizedBitmap = new Bitmap(bitmap, 16, 16))
+                            {
+                                //Logic.Collections.LvApplicationsVersionsCollection.Add(lvitem);
+                                imglstApplications.Images.Add(resizedBitmap);
+                            }
+                        }
+                    }
+
                     // Add the items to the ListView.
-                    lstvwApplications.Items.Add(application.Name);
+                    lstvwApplications.Items.Add(lvitem);
                 }
             }
             catch (Exception exception)
@@ -108,6 +137,7 @@ namespace AlterMarket
                 lstvwApplicationsVersions.Items.Clear();
                 // Clear the imagelist to prevent double images.
                 imglstApplicationsVersions.Images.Clear();
+
                 // Scan through the collection of items.
                 foreach (var application in Collections.ListApplications)
                 {
@@ -120,30 +150,33 @@ namespace AlterMarket
                         for (int index = 0; index < application.Versions.Count; index++)
                         {
                             // The version we are adding.
-                            var version = application.Versions[index];
+                            Collections.Versions version = application.Versions[index];
                             // Create the ListViewItem.
                             ListViewItem lvitem = new ListViewItem();
 
                             // Set the ListViewItem's text.
                             lvitem.Text = version.Name;
-                            // Add the ListViewItem/
+                            // Add the ListViewItem's subitem.
                             lvitem.SubItems.Add(ByteCountFormatter.FormatBytes((long)version.Size));
                             // Tell where to put the image.
                             lvitem.ImageIndex = index;
-                            Console.WriteLine("Versions: " + version.Name);
 
-                            // Download and add the image for the imagelist.
-                            using (WebClient webClient = new WebClient())
+                            // Check if the version contains an icon
+                            if (!string.IsNullOrEmpty(version.Icon))
                             {
-                                byte[] bitmapData = webClient.DownloadData(version.Icon);
-
-                                // Bitmap data => bitmap => resized bitmap.            
-                                using (MemoryStream memoryStream = new MemoryStream(bitmapData))
-                                using (Bitmap bitmap = new Bitmap(memoryStream))
-                                using (Bitmap resizedBitmap = new Bitmap(bitmap, 16, 16))
+                                // Download and add the image for the imagelist.
+                                using (WebClient webClient = new WebClient())
                                 {
-                                    //Logic.Collections.LvApplicationsVersionsCollection.Add(lvitem);
-                                    imglstApplicationsVersions.Images.Add(resizedBitmap);
+                                    byte[] bitmapData = webClient.DownloadData(version.Icon);
+
+                                    // Bitmap data => bitmap => resized bitmap.
+                                    using (MemoryStream memoryStream = new MemoryStream(bitmapData))
+                                    using (Bitmap bitmap = new Bitmap(memoryStream))
+                                    using (Bitmap resizedBitmap = new Bitmap(bitmap, 16, 16))
+                                    {
+                                        //Logic.Collections.LvApplicationsVersionsCollection.Add(lvitem);
+                                        imglstApplicationsVersions.Images.Add(resizedBitmap);
+                                    }
                                 }
                             }
 
