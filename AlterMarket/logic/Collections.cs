@@ -3,11 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AlterMarket.logic
 {
     class Collections
     {
+        /// <summary>
+        /// This list contains all the applications and its contents.
+        /// </summary>
+        public static readonly List<Items> ListApplications = new List<Items>();
+
+        /// <summary>
+        /// This contains all the applications formatted into ListViewItems.
+        /// </summary>
+        public static List<ListViewItem> LvApplicationsCollection = new List<ListViewItem>();
+
+        /// <summary>
+        /// This contains all the applications's icons.
+        /// </summary>
+        public static ImageList LvApplicationsCollectionIcons = new ImageList();
+
         /// <summary>
         /// This class contains the items that will be put in the list.
         /// </summary>
