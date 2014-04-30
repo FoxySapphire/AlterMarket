@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -75,9 +76,9 @@ namespace AlterMarket
 
             #region Add the items to the ListView
 
-            Console.WriteLine("Adding Items");
             try
             {
+                Console.WriteLine("Adding Items");
                 // Clear the items collection to prevent double items.
                 lstvwApplications.Items.Clear();
                 // Scan through the collection of items.
@@ -98,21 +99,56 @@ namespace AlterMarket
 
         private void lstvwApplications_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Console.WriteLine("Adding Subitems");
+            #region Add the subitems to the ListView
+
             try
             {
+                Console.WriteLine("Adding Subitems");
+                // Clear the items collection to prevent double items.
                 lstvwApplicationsVersions.Items.Clear();
+                // Clear the imagelist to prevent double images.
+                imglstApplicationsVersions.Images.Clear();
+                // Scan through the collection of items.
                 foreach (var application in Collections.ListApplications)
                 {
-                    if (application.Versions != null)
+                    // Only add the items of the currently selected item.
+                    if (application.Name == lstvwApplications.SelectedItems[0].Text)
                     {
-                        foreach (var version in application.Versions)
+                        // Only continue if there are versions, else cancel (saves time and errors).
+                        if (application.Versions == null || application.Versions.Count == 0) continue;
+                        // Scan through all the versions of the clicked application.
+                        for (int index = 0; index < application.Versions.Count; index++)
                         {
-                            if (application.Name == lstvwApplications.SelectedItems[0].Text)
+                            // The version we are adding.
+                            var version = application.Versions[index];
+                            // Create the ListViewItem.
+                            ListViewItem lvitem = new ListViewItem();
+
+                            // Set the ListViewItem's text.
+                            lvitem.Text = version.Name;
+                            // Add the ListViewItem/
+                            lvitem.SubItems.Add(ByteCountFormatter.FormatBytes((long)version.Size));
+                            // Tell where to put the image.
+                            lvitem.ImageIndex = index;
+                            Console.WriteLine("Versions: " + version.Name);
+
+                            // Download and add the image for the imagelist.
+                            using (WebClient webClient = new WebClient())
                             {
-                                Console.WriteLine("Versions: " + version.Name);
-                                lstvwApplicationsVersions.Items.Add(version.Name);
+                                byte[] bitmapData = webClient.DownloadData(version.Icon);
+
+                                // Bitmap data => bitmap => resized bitmap.            
+                                using (MemoryStream memoryStream = new MemoryStream(bitmapData))
+                                using (Bitmap bitmap = new Bitmap(memoryStream))
+                                using (Bitmap resizedBitmap = new Bitmap(bitmap, 16, 16))
+                                {
+                                    //Logic.Collections.LvApplicationsVersionsCollection.Add(lvitem);
+                                    imglstApplicationsVersions.Images.Add(resizedBitmap);
+                                }
                             }
+
+                            // Add the items to the ListView.
+                            lstvwApplicationsVersions.Items.Add(lvitem);
                         }
                     }
                 }
@@ -121,6 +157,31 @@ namespace AlterMarket
             {
 
             }
+
+            #endregion
         }   
+    }
+    public class ByteCountFormatter
+    {
+        public long DataSize { get; set; }
+        public DateTime Time { get; set; }
+
+        /// <summary>
+        /// This method converts a # amount of bytes into a readable string.
+        /// </summary>
+        /// <param name="bytes">The amount of bytes.</param>
+        /// <returns>A formatted string.</returns>
+        public static string FormatBytes(long bytes)
+        {
+            string[] suffix = { "Bytes", "KB", "MB", "GB", "TB" };
+            int i = 0;
+            double dblSByte = bytes;
+            if (bytes > 1024)
+            {
+                for (i = 0; (bytes / 1024) > 0; i++, bytes /= 1024)
+                    dblSByte = bytes / 1024.0;
+            }
+            return String.Format("{0:0.##} {1}", dblSByte, suffix[i]);
+        }
     }
 }

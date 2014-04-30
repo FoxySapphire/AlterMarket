@@ -125,10 +125,13 @@
             this.lstvwApplications.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.clmApplications});
             this.lstvwApplications.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstvwApplications.FullRowSelect = true;
+            this.lstvwApplications.GridLines = true;
             this.lstvwApplications.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1,
             listViewItem2});
             this.lstvwApplications.Location = new System.Drawing.Point(0, 0);
+            this.lstvwApplications.MultiSelect = false;
             this.lstvwApplications.Name = "lstvwApplications";
             this.lstvwApplications.Size = new System.Drawing.Size(166, 332);
             this.lstvwApplications.SmallImageList = this.imglstApplications;
@@ -154,10 +157,13 @@
             this.clmApplication,
             this.clmSize});
             this.lstvwApplicationsVersions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstvwApplicationsVersions.FullRowSelect = true;
+            this.lstvwApplicationsVersions.GridLines = true;
             this.lstvwApplicationsVersions.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem3,
             listViewItem4});
             this.lstvwApplicationsVersions.Location = new System.Drawing.Point(0, 0);
+            this.lstvwApplicationsVersions.MultiSelect = false;
             this.lstvwApplicationsVersions.Name = "lstvwApplicationsVersions";
             this.lstvwApplicationsVersions.Size = new System.Drawing.Size(425, 332);
             this.lstvwApplicationsVersions.SmallImageList = this.imglstApplicationsVersions;
