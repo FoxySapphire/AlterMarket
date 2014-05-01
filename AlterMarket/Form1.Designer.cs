@@ -137,6 +137,7 @@
             this.lstvwGamesSubs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.clmSub,
             this.clmSize});
+            this.lstvwGamesSubs.ContextMenuStrip = this.menuGamesSubs;
             this.lstvwGamesSubs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstvwGamesSubs.FullRowSelect = true;
             this.lstvwGamesSubs.GridLines = true;
@@ -272,7 +273,8 @@
             this.menuGamesSubs.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.downloadToolStripMenuItem});
             this.menuGamesSubs.Name = "menuGamesSubs";
-            this.menuGamesSubs.Size = new System.Drawing.Size(129, 26);
+            this.menuGamesSubs.Size = new System.Drawing.Size(153, 48);
+            this.menuGamesSubs.Opening += new System.ComponentModel.CancelEventHandler(this.menuGamesSubs_Opening);
             // 
             // downloadToolStripMenuItem
             // 

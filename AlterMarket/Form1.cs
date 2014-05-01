@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -57,9 +58,29 @@ namespace AlterMarket
 
         private void downloadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("");
+            // Scan through the collection of items.
+            foreach (var game in Collections.ListGames)
+            {
+                // Only continue when there are sub items (never know, just to prevent random errors).
+                if (game.Subs == null) continue;
+                // Scan through all the sub items.
+                foreach (var sub in game.Subs)
+                {
+                    // Only add the items of the currently selected item.
+                    if (sub.Name != lstvwGamesSubs.SelectedItems[0].Text) continue;
+                    // Only continue if there is a download link available.
+                    if (!string.IsNullOrEmpty(sub.Download))
+                    {
+                        // Initialize the download.
+                        Process.Start(sub.Download);
+                    }
+                }
+            }
         }
 
+        /// <summary>
+        /// This method downloads and adds the games.
+        /// </summary>
         private void LoadGames()
         {
             #region Get and save json
@@ -143,6 +164,9 @@ namespace AlterMarket
             #endregion
         }
 
+        /// <summary>
+        /// This method adds the sub items.
+        /// </summary>
         private void LoadGamesSubs()
         {
             #region Add the subitems to the ListView
@@ -215,6 +239,15 @@ namespace AlterMarket
             }
 
             #endregion
+        }
+
+        private void menuGamesSubs_Opening(object sender, CancelEventArgs e)
+        {
+            // Only open if an item is selected.
+            if (lstvwGamesSubs.SelectedItems.Count < 1)
+            {
+                e.Cancel = true;
+            }
         }
     }
     public class ByteCountFormatter
