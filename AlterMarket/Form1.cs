@@ -42,101 +42,40 @@ namespace AlterMarket
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            LoadGames();
         }
 
-        private void lstvwApplications_SelectedIndexChanged(object sender, EventArgs e)
+        private void lstvwGames_SelectedIndexChanged(object sender, EventArgs e)
         {
-            #region Add the subitems to the ListView
-
-            // Check if an item is selected.
-            if (lstvwApplications.SelectedItems.Count == 0)
-            {
-                return;
-            }
-
-            try
-            {
-                Console.WriteLine("Adding Subitems");
-                // Clear the items collection to prevent double items.
-                lstvwApplicationsVersions.Items.Clear();
-                // Clear the imagelist to prevent double images.
-                imglstApplicationsVersions.Images.Clear();
-
-                // Scan through the collection of items.
-                foreach (var application in Collections.ListApplications)
-                {
-                    // Only add the items of the currently selected item.
-                    if (application.Name == lstvwApplications.SelectedItems[0].Text)
-                    {
-                        // Only continue if there are versions, else cancel (saves time and errors).
-                        if (application.Versions == null || application.Versions.Count == 0) continue;
-                        // Scan through all the versions of the clicked application.
-                        for (int index = 0; index < application.Versions.Count; index++)
-                        {
-                            // The version we are adding.
-                            Collections.Versions version = application.Versions[index];
-                            // Create the ListViewItem.
-                            ListViewItem lvitem = new ListViewItem();
-
-                            // Set the ListViewItem's text.
-                            lvitem.Text = version.Name;
-                            // Add the ListViewItem's subitem.
-                            lvitem.SubItems.Add(ByteCountFormatter.FormatBytes((long)version.Size));
-                            // Tell where to put the image.
-                            lvitem.ImageIndex = index;
-
-                            // Check if the version contains an icon
-                            if (!string.IsNullOrEmpty(version.Icon))
-                            {
-                                // Download and add the image for the imagelist.
-                                using (WebClient webClient = new WebClient())
-                                {
-                                    byte[] bitmapData = webClient.DownloadData(version.Icon);
-
-                                    // Bitmap data => bitmap => resized bitmap.
-                                    using (MemoryStream memoryStream = new MemoryStream(bitmapData))
-                                    using (Bitmap bitmap = new Bitmap(memoryStream))
-                                    using (Bitmap resizedBitmap = new Bitmap(bitmap, 16, 16))
-                                    {
-                                        //Logic.Collections.LvApplicationsVersionsCollection.Add(lvitem);
-                                        imglstApplicationsVersions.Images.Add(resizedBitmap);
-                                    }
-                                }
-                            }
-
-                            // Add the items to the ListView.
-                            lstvwApplicationsVersions.Items.Add(lvitem);
-                        }
-                    }
-                }
-            }
-            catch (Exception exception)
-            {
-
-            }
-
-            #endregion
+            LoadGamesSubs();
         }
 
-        private void applicationsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void gamesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            panel1.Visible = false;
-            
+            LoadGames();
+        }
+
+        private void downloadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("");
+        }
+
+        private void LoadGames()
+        {
             #region Get and save json
 
             try
             {
                 // Set the proxy to null to reduce a lot of time.
-                WebClient wc = new WebClient {Proxy = null};
+                WebClient wc = new WebClient { Proxy = null };
                 // Download and save the json.
                 string downloadLink = wc.DownloadString("http://darkshadw.com/game_patcher/index.php");
                 // Deserialize the JSON and put it in a list for later use.
                 JsonConvert.DeserializeObject<List<Collections.Items>>(downloadLink);
                 // Make <Items> "searchable"
-                Collections.ListApplications.Clear();
+                Collections.ListGames.Clear();
                 // Put the stuff in a enumerable (searchable) list.
-                Collections.ListApplications.AddRange(JsonConvert.DeserializeObject<List<Collections.Items>>(downloadLink));
+                Collections.ListGames.AddRange(JsonConvert.DeserializeObject<List<Collections.Items>>(downloadLink));
             }
             catch (Exception exception)
             {
@@ -156,42 +95,42 @@ namespace AlterMarket
             {
                 Console.WriteLine("Adding Items");
                 // Clear the items collection to prevent double items.
-                lstvwApplications.Items.Clear();
+                lstvGames.Items.Clear();
                 // Scan through the collection of items.
-                for (int index = 0; index < Collections.ListApplications.Count; index++)
+                for (int index = 0; index < Collections.ListGames.Count; index++)
                 {
-                    // The application we are adding.
-                    Collections.Items application = Collections.ListApplications[index];
+                    // The game we are adding.
+                    Collections.Items game = Collections.ListGames[index];
 
                     // Create the ListViewItem.
                     ListViewItem lvitem = new ListViewItem();
 
                     // Set the ListViewItem's text.
-                    lvitem.Text = application.Name;
+                    lvitem.Text = game.Name;
                     // Tell where to put the image.
                     lvitem.ImageIndex = index;
 
-                    // Check if the application contains an icon
-                    if (!string.IsNullOrEmpty(application.Icon))
+                    // Check if the game contains an icon
+                    if (!string.IsNullOrEmpty(game.Icon))
                     {
                         // Download and add the image for the imagelist.
                         using (WebClient webClient = new WebClient())
                         {
-                            byte[] bitmapData = webClient.DownloadData(application.Icon);
+                            byte[] bitmapData = webClient.DownloadData(game.Icon);
 
                             // Bitmap data => bitmap => resized bitmap.
                             using (MemoryStream memoryStream = new MemoryStream(bitmapData))
                             using (Bitmap bitmap = new Bitmap(memoryStream))
                             using (Bitmap resizedBitmap = new Bitmap(bitmap, 16, 16))
                             {
-                                //Logic.Collections.LvApplicationsVersionsCollection.Add(lvitem);
-                                imglstApplications.Images.Add(resizedBitmap);
+                                //Logic.Collections.LvGamesSubsCollection.Add(lvitem);
+                                imglstGames.Images.Add(resizedBitmap);
                             }
                         }
                     }
 
                     // Add the items to the ListView.
-                    lstvwApplications.Items.Add(lvitem);
+                    lstvGames.Items.Add(lvitem);
                 }
             }
             catch (Exception exception)
@@ -199,11 +138,83 @@ namespace AlterMarket
 
             }
 
-            lstvwApplications.Sorting = SortOrder.Ascending;
+            lstvGames.Sorting = SortOrder.Ascending;
 
             #endregion
+        }
 
-            panel1.Visible = true;
+        private void LoadGamesSubs()
+        {
+            #region Add the subitems to the ListView
+
+            // Check if an item is selected.
+            if (lstvGames.SelectedItems.Count == 0)
+            {
+                return;
+            }
+
+            try
+            {
+                Console.WriteLine("Adding Subitems");
+                // Clear the items collection to prevent double items.
+                lstvwGamesSubs.Items.Clear();
+                // Clear the imagelist to prevent double images.
+                imglstGamesSubs.Images.Clear();
+
+                // Scan through the collection of items.
+                foreach (var game in Collections.ListGames)
+                {
+                    // Only add the items of the currently selected item.
+                    if (game.Name == lstvGames.SelectedItems[0].Text)
+                    {
+                        // Only continue if there are subs, else cancel (saves time and errors).
+                        if (game.Subs == null || game.Subs.Count == 0) continue;
+                        // Scan through all the subs of the clicked game.
+                        for (int index = 0; index < game.Subs.Count; index++)
+                        {
+                            // The sub we are adding.
+                            Collections.Subs sub = game.Subs[index];
+                            // Create the ListViewItem.
+                            ListViewItem lvitem = new ListViewItem();
+
+                            // Set the ListViewItem's text.
+                            lvitem.Text = sub.Name;
+                            // Add the ListViewItem's subitem.
+                            lvitem.SubItems.Add(ByteCountFormatter.FormatBytes((long)sub.Size));
+                            // Tell where to put the image.
+                            lvitem.ImageIndex = index;
+
+                            // Check if the sub contains an icon
+                            if (!string.IsNullOrEmpty(sub.Icon))
+                            {
+                                // Download and add the image for the imagelist.
+                                using (WebClient webClient = new WebClient())
+                                {
+                                    byte[] bitmapData = webClient.DownloadData(sub.Icon);
+
+                                    // Bitmap data => bitmap => resized bitmap.
+                                    using (MemoryStream memoryStream = new MemoryStream(bitmapData))
+                                    using (Bitmap bitmap = new Bitmap(memoryStream))
+                                    using (Bitmap resizedBitmap = new Bitmap(bitmap, 16, 16))
+                                    {
+                                        //Logic.Collections.LvGamesSubsCollection.Add(lvitem);
+                                        imglstGamesSubs.Images.Add(resizedBitmap);
+                                    }
+                                }
+                            }
+
+                            // Add the items to the ListView.
+                            lstvwGamesSubs.Items.Add(lvitem);
+                        }
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+
+            }
+
+            #endregion
         }
     }
     public class ByteCountFormatter

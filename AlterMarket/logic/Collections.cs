@@ -13,6 +13,10 @@ namespace AlterMarket.logic
         /// This list contains all the applications and its contents.
         /// </summary>
         public static readonly List<Items> ListApplications = new List<Items>();
+        /// <summary>
+        /// This list contains all the applications and its contents.
+        /// </summary>
+        public static readonly List<Items> ListGames = new List<Items>();
 
         /// <summary>
         /// This class contains the items that will be put in the list.
@@ -23,18 +27,18 @@ namespace AlterMarket.logic
             public string Name { get; set; }
             public string Icon { get; set; }    
             public string Description { get; set; }
-            public List<Versions> Versions { get; set; }
+            public List<Subs> Subs { get; set; }
         }
 
         /// <summary>
         /// This class contains all the information about the different versions that can be downloaded.
         /// </summary>
-        public class Versions
+        public class Subs
         {
             public string game_id { get; set; }
             public string Name { get; set; }
             public string Icon { get; set; }
-            public string Version { get; set; }
+            public string Sub { get; set; }
             public string Description { get; set; }
             public string Download { get; set; }
             public decimal Size { get; set; }
