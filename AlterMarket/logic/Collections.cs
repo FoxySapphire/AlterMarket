@@ -15,16 +15,6 @@ namespace AlterMarket.logic
         public static readonly List<Items> ListApplications = new List<Items>();
 
         /// <summary>
-        /// This contains all the applications formatted into ListViewItems.
-        /// </summary>
-        public static List<ListViewItem> LvApplicationsCollection = new List<ListViewItem>();
-
-        /// <summary>
-        /// This contains all the applications's icons.
-        /// </summary>
-        public static ImageList LvApplicationsCollectionIcons = new ImageList();
-
-        /// <summary>
         /// This class contains the items that will be put in the list.
         /// </summary>
         public class Items

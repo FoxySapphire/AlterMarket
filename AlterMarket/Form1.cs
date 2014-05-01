@@ -45,8 +45,84 @@ namespace AlterMarket
 
         }
 
+        private void lstvwApplications_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            #region Add the subitems to the ListView
+
+            // Check if an item is selected.
+            if (lstvwApplications.SelectedItems.Count == 0)
+            {
+                return;
+            }
+
+            try
+            {
+                Console.WriteLine("Adding Subitems");
+                // Clear the items collection to prevent double items.
+                lstvwApplicationsVersions.Items.Clear();
+                // Clear the imagelist to prevent double images.
+                imglstApplicationsVersions.Images.Clear();
+
+                // Scan through the collection of items.
+                foreach (var application in Collections.ListApplications)
+                {
+                    // Only add the items of the currently selected item.
+                    if (application.Name == lstvwApplications.SelectedItems[0].Text)
+                    {
+                        // Only continue if there are versions, else cancel (saves time and errors).
+                        if (application.Versions == null || application.Versions.Count == 0) continue;
+                        // Scan through all the versions of the clicked application.
+                        for (int index = 0; index < application.Versions.Count; index++)
+                        {
+                            // The version we are adding.
+                            Collections.Versions version = application.Versions[index];
+                            // Create the ListViewItem.
+                            ListViewItem lvitem = new ListViewItem();
+
+                            // Set the ListViewItem's text.
+                            lvitem.Text = version.Name;
+                            // Add the ListViewItem's subitem.
+                            lvitem.SubItems.Add(ByteCountFormatter.FormatBytes((long)version.Size));
+                            // Tell where to put the image.
+                            lvitem.ImageIndex = index;
+
+                            // Check if the version contains an icon
+                            if (!string.IsNullOrEmpty(version.Icon))
+                            {
+                                // Download and add the image for the imagelist.
+                                using (WebClient webClient = new WebClient())
+                                {
+                                    byte[] bitmapData = webClient.DownloadData(version.Icon);
+
+                                    // Bitmap data => bitmap => resized bitmap.
+                                    using (MemoryStream memoryStream = new MemoryStream(bitmapData))
+                                    using (Bitmap bitmap = new Bitmap(memoryStream))
+                                    using (Bitmap resizedBitmap = new Bitmap(bitmap, 16, 16))
+                                    {
+                                        //Logic.Collections.LvApplicationsVersionsCollection.Add(lvitem);
+                                        imglstApplicationsVersions.Images.Add(resizedBitmap);
+                                    }
+                                }
+                            }
+
+                            // Add the items to the ListView.
+                            lstvwApplicationsVersions.Items.Add(lvitem);
+                        }
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+
+            }
+
+            #endregion
+        }
+
         private void applicationsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            panel1.Visible = false;
+            
             #region Get and save json
 
             try
@@ -123,76 +199,12 @@ namespace AlterMarket
 
             }
 
+            lstvwApplications.Sorting = SortOrder.Ascending;
+
             #endregion
+
+            panel1.Visible = true;
         }
-
-        private void lstvwApplications_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            #region Add the subitems to the ListView
-
-            try
-            {
-                Console.WriteLine("Adding Subitems");
-                // Clear the items collection to prevent double items.
-                lstvwApplicationsVersions.Items.Clear();
-                // Clear the imagelist to prevent double images.
-                imglstApplicationsVersions.Images.Clear();
-
-                // Scan through the collection of items.
-                foreach (var application in Collections.ListApplications)
-                {
-                    // Only add the items of the currently selected item.
-                    if (application.Name == lstvwApplications.SelectedItems[0].Text)
-                    {
-                        // Only continue if there are versions, else cancel (saves time and errors).
-                        if (application.Versions == null || application.Versions.Count == 0) continue;
-                        // Scan through all the versions of the clicked application.
-                        for (int index = 0; index < application.Versions.Count; index++)
-                        {
-                            // The version we are adding.
-                            Collections.Versions version = application.Versions[index];
-                            // Create the ListViewItem.
-                            ListViewItem lvitem = new ListViewItem();
-
-                            // Set the ListViewItem's text.
-                            lvitem.Text = version.Name;
-                            // Add the ListViewItem's subitem.
-                            lvitem.SubItems.Add(ByteCountFormatter.FormatBytes((long)version.Size));
-                            // Tell where to put the image.
-                            lvitem.ImageIndex = index;
-
-                            // Check if the version contains an icon
-                            if (!string.IsNullOrEmpty(version.Icon))
-                            {
-                                // Download and add the image for the imagelist.
-                                using (WebClient webClient = new WebClient())
-                                {
-                                    byte[] bitmapData = webClient.DownloadData(version.Icon);
-
-                                    // Bitmap data => bitmap => resized bitmap.
-                                    using (MemoryStream memoryStream = new MemoryStream(bitmapData))
-                                    using (Bitmap bitmap = new Bitmap(memoryStream))
-                                    using (Bitmap resizedBitmap = new Bitmap(bitmap, 16, 16))
-                                    {
-                                        //Logic.Collections.LvApplicationsVersionsCollection.Add(lvitem);
-                                        imglstApplicationsVersions.Images.Add(resizedBitmap);
-                                    }
-                                }
-                            }
-
-                            // Add the items to the ListView.
-                            lstvwApplicationsVersions.Items.Add(lvitem);
-                        }
-                    }
-                }
-            }
-            catch (Exception exception)
-            {
-
-            }
-
-            #endregion
-        }   
     }
     public class ByteCountFormatter
     {

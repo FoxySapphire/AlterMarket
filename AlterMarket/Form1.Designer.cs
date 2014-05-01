@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Dummy Item 1");
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Dummy Item 2");
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Dummy Item 1");
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("Dummy Item 2");
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -56,8 +52,8 @@
             this.gamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.musicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.marqueeProgressBarControl1 = new DevExpress.XtraEditors.MarqueeProgressBarControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.marqueeProgressBarControl1 = new DevExpress.XtraEditors.MarqueeProgressBarControl();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -127,9 +123,6 @@
             this.lstvwApplications.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstvwApplications.FullRowSelect = true;
             this.lstvwApplications.GridLines = true;
-            this.lstvwApplications.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2});
             this.lstvwApplications.Location = new System.Drawing.Point(0, 0);
             this.lstvwApplications.MultiSelect = false;
             this.lstvwApplications.Name = "lstvwApplications";
@@ -159,9 +152,6 @@
             this.lstvwApplicationsVersions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstvwApplicationsVersions.FullRowSelect = true;
             this.lstvwApplicationsVersions.GridLines = true;
-            this.lstvwApplicationsVersions.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem3,
-            listViewItem4});
             this.lstvwApplicationsVersions.Location = new System.Drawing.Point(0, 0);
             this.lstvwApplicationsVersions.MultiSelect = false;
             this.lstvwApplicationsVersions.Name = "lstvwApplicationsVersions";
@@ -288,16 +278,6 @@
             this.panel2.Size = new System.Drawing.Size(609, 364);
             this.panel2.TabIndex = 3;
             // 
-            // marqueeProgressBarControl1
-            // 
-            this.marqueeProgressBarControl1.Location = new System.Drawing.Point(240, 183);
-            this.marqueeProgressBarControl1.Name = "marqueeProgressBarControl1";
-            this.marqueeProgressBarControl1.Properties.LookAndFeel.SkinName = "VS2010";
-            this.marqueeProgressBarControl1.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.marqueeProgressBarControl1.Properties.MarqueeAnimationSpeed = 75;
-            this.marqueeProgressBarControl1.Size = new System.Drawing.Size(129, 18);
-            this.marqueeProgressBarControl1.TabIndex = 1;
-            // 
             // labelControl1
             // 
             this.labelControl1.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -308,6 +288,17 @@
             this.labelControl1.Size = new System.Drawing.Size(129, 13);
             this.labelControl1.TabIndex = 2;
             this.labelControl1.Text = "Loading, please wait...";
+            // 
+            // marqueeProgressBarControl1
+            // 
+            this.marqueeProgressBarControl1.EditValue = 0;
+            this.marqueeProgressBarControl1.Location = new System.Drawing.Point(240, 183);
+            this.marqueeProgressBarControl1.Name = "marqueeProgressBarControl1";
+            this.marqueeProgressBarControl1.Properties.LookAndFeel.SkinName = "VS2010";
+            this.marqueeProgressBarControl1.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.marqueeProgressBarControl1.Properties.MarqueeAnimationSpeed = 75;
+            this.marqueeProgressBarControl1.Size = new System.Drawing.Size(129, 18);
+            this.marqueeProgressBarControl1.TabIndex = 1;
             // 
             // Form1
             // 

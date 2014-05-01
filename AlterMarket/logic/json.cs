@@ -13,9 +13,11 @@ using Newtonsoft.Json;
 
 namespace AlterMarket.logic
 {
+    /// <summary>
+    /// Was thinking of making this class load all the items, but if seems harder than I thought.
+    /// </summary>
     class Json
     {
-
         public static class GetApplications
         {
             public static void Names()
