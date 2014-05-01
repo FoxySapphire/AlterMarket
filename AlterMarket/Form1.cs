@@ -12,7 +12,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AlterMarket.logic;
+using DevExpress.Data.Linq;
 using Newtonsoft.Json;
+using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
 namespace AlterMarket
 {
@@ -71,10 +73,31 @@ namespace AlterMarket
                     // Only continue if there is a download link available.
                     if (!string.IsNullOrEmpty(sub.Download))
                     {
+                        if (sub.Download.Contains("mediafire.com"))
+                        {
+                            webBrowser1.Navigate("http://www.mediafire.com/download/01tp40pt4brv9ry/Borderlands_Worldwide_Update_PC1.41.zip", null, null, "User-Agent: Chrome/27.0.1453.94");
+                            return;
+                        }
                         // Initialize the download.
                         Process.Start(sub.Download);
                     }
                 }
+            }
+        }
+        void BrowserDocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            if (e.Url.AbsolutePath != ((WebBrowser)sender).Url.AbsolutePath)
+                return;
+
+            var meow = webBrowser1.Document.Body.InnerHtml;
+
+            dynamic doc1 = webBrowser1.Document;
+            if (doc1 != null)
+            {
+                HtmlDocument doc = new HtmlDocument();
+                doc.LoadHtml(meow);
+
+                webBrowser1.Navigate((Mediafire.GetUrl(doc)));
             }
         }
 
@@ -248,6 +271,11 @@ namespace AlterMarket
             {
                 e.Cancel = true;
             }
+        }
+
+        private void webBrowser1_FileDownload(object sender, EventArgs e)
+        {
+            var a = e.GetAttachedProperty("ActiveDocument");
         }
     }
     public class ByteCountFormatter

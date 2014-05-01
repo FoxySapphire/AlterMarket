@@ -54,6 +54,7 @@
             this.downloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -99,6 +100,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.webBrowser1);
             this.splitContainer1.Panel2.Controls.Add(this.lstvwGamesSubs);
             this.splitContainer1.Size = new System.Drawing.Size(595, 332);
             this.splitContainer1.SplitterDistance = 166;
@@ -273,7 +275,7 @@
             this.menuGamesSubs.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.downloadToolStripMenuItem});
             this.menuGamesSubs.Name = "menuGamesSubs";
-            this.menuGamesSubs.Size = new System.Drawing.Size(153, 48);
+            this.menuGamesSubs.Size = new System.Drawing.Size(129, 26);
             this.menuGamesSubs.Opening += new System.ComponentModel.CancelEventHandler(this.menuGamesSubs_Opening);
             // 
             // downloadToolStripMenuItem
@@ -294,6 +296,19 @@
             this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
             this.toolStripStatusLabel5.Size = new System.Drawing.Size(12, 17);
             this.toolStripStatusLabel5.Text = "-";
+            // 
+            // webBrowser1
+            // 
+            this.webBrowser1.Location = new System.Drawing.Point(163, 132);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser1.Name = "webBrowser1";
+            this.webBrowser1.ScriptErrorsSuppressed = true;
+            this.webBrowser1.Size = new System.Drawing.Size(20, 20);
+            this.webBrowser1.TabIndex = 1;
+            this.webBrowser1.Visible = false;
+            this.webBrowser1.WebBrowserShortcutsEnabled = false;
+            this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.BrowserDocumentCompleted);
+            this.webBrowser1.FileDownload += new System.EventHandler(this.webBrowser1_FileDownload);
             // 
             // Form1
             // 
@@ -355,6 +370,7 @@
         private System.Windows.Forms.ToolStripMenuItem downloadToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
+        private System.Windows.Forms.WebBrowser webBrowser1;
     }
 }
 
