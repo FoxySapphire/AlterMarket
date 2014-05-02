@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,6 +21,8 @@ namespace AlterMarket
 {
     public partial class Form1 : Form
     {
+        int _selectedGame;
+
         public Form1()
         {
             #region - Detect Dll Files -
@@ -48,8 +51,17 @@ namespace AlterMarket
             LoadGames();
         }
 
-        private void lstvwGames_SelectedIndexChanged(object sender, EventArgs e)
+        private void lstvGames_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (lstvGames.SelectedIndices.Count <= 0)
+            {
+                return;
+            }
+            int intselectedindex = lstvGames.SelectedIndices[0];
+            if (intselectedindex >= 0)
+            {
+                _selectedGame = lstvGames.Items[intselectedindex].Index;
+            } 
             LoadGamesSubs();
         }
 
@@ -61,44 +73,53 @@ namespace AlterMarket
         private void downloadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Scan through the collection of items.
-            foreach (var game in Collections.ListGames)
+            // UPDATE: Changed it to a for loop so we can keep track of the index to prevent weird download errors o_O...
+            for (int index = 0; index < Collections.ListGames.Count; index++)
             {
-                // Only continue when there are sub items (never know, just to prevent random errors).
-                if (game.Subs == null) continue;
-                // Scan through all the sub items.
-                foreach (var sub in game.Subs)
+                var game = Collections.ListGames[index];
+                if (index == _selectedGame)
                 {
-                    // Only add the items of the currently selected item.
-                    if (sub.Name != lstvwGamesSubs.SelectedItems[0].Text) continue;
-                    // Only continue if there is a download link available.
-                    if (!string.IsNullOrEmpty(sub.Download))
+                    // Only continue when there are sub items (never know, just to prevent random errors).
+                    if (game.Subs == null) continue;
+                    // Scan through all the sub items.
+                    foreach (var sub in game.Subs)
                     {
-                        if (sub.Download.Contains("mediafire.com"))
+                        // Only add the items of the currently selected item.
+                        if (sub.Name != lstvwGamesSubs.SelectedItems[0].Text) continue;
+                        // Only continue if there is a download link available.
+                        if (!string.IsNullOrEmpty(sub.Download))
                         {
-                            webBrowser1.Navigate("http://www.mediafire.com/download/01tp40pt4brv9ry/Borderlands_Worldwide_Update_PC1.41.zip", null, null, "User-Agent: Chrome/27.0.1453.94");
-                            return;
+                            // Check if the url contains mediafire.com.
+                            if (sub.Download.Contains("mediafire.com"))
+                            {
+                                // Set the user agent to chrome (to prevent captcha as much as possible).
+                                webBrowser1.Navigate(sub.Download, null, null, "User-Agent: Chrome/27.0.1453.94");
+                                return;
+                            }
+                            // Initialize the download.
+                            Process.Start(sub.Download);
                         }
-                        // Initialize the download.
-                        Process.Start(sub.Download);
                     }
                 }
             }
         }
-        void BrowserDocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+
+        private void BrowserDocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            if (e.Url.AbsolutePath != ((WebBrowser)sender).Url.AbsolutePath)
+            // Wait for the page to be fully loaded.
+            if (e.Url.AbsolutePath != ((WebBrowser) sender).Url.AbsolutePath)
                 return;
 
-            var meow = webBrowser1.Document.Body.InnerHtml;
+            // Save the HTML to a string.
+            var html = webBrowser1.Document.Body.InnerHtml;
 
-            dynamic doc1 = webBrowser1.Document;
-            if (doc1 != null)
-            {
-                HtmlDocument doc = new HtmlDocument();
-                doc.LoadHtml(meow);
+            // The html document we send to our function.
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(html);
 
-                webBrowser1.Navigate((Mediafire.GetUrl(doc)));
-            }
+            // Send the html document so we can search for the download link.
+            string url = Mediafire.GetUrl(doc);
+            Process.Start(url);
         }
 
         /// <summary>
@@ -275,7 +296,12 @@ namespace AlterMarket
 
         private void webBrowser1_FileDownload(object sender, EventArgs e)
         {
-            var a = e.GetAttachedProperty("ActiveDocument");
+
+        }
+
+        private void webBrowser1_NewWindow(object sender, CancelEventArgs e)
+        {
+
         }
     }
     public class ByteCountFormatter

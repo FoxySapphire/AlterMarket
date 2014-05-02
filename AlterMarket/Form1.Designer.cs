@@ -121,7 +121,7 @@
             this.lstvGames.TabIndex = 0;
             this.lstvGames.UseCompatibleStateImageBehavior = false;
             this.lstvGames.View = System.Windows.Forms.View.Details;
-            this.lstvGames.SelectedIndexChanged += new System.EventHandler(this.lstvwGames_SelectedIndexChanged);
+            this.lstvGames.SelectedIndexChanged += new System.EventHandler(this.lstvGames_SelectedIndexChanged);
             // 
             // clmGames
             // 
@@ -299,7 +299,7 @@
             // 
             // webBrowser1
             // 
-            this.webBrowser1.Location = new System.Drawing.Point(163, 132);
+            this.webBrowser1.Location = new System.Drawing.Point(400, 309);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.ScriptErrorsSuppressed = true;
@@ -309,6 +309,7 @@
             this.webBrowser1.WebBrowserShortcutsEnabled = false;
             this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.BrowserDocumentCompleted);
             this.webBrowser1.FileDownload += new System.EventHandler(this.webBrowser1_FileDownload);
+            this.webBrowser1.NewWindow += new System.ComponentModel.CancelEventHandler(this.webBrowser1_NewWindow);
             // 
             // Form1
             // 
