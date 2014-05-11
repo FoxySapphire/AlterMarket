@@ -13,7 +13,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AlterMarket.logic;
-using DevExpress.Data.Linq;
 using Newtonsoft.Json;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
@@ -25,13 +24,20 @@ namespace AlterMarket
 
         public Form1()
         {
+            // This piece of code let's us embed the dll files into our application.
             #region - Detect Dll Files -
 
             AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
             {
                 var resourceName = new AssemblyName(args.Name).Name + ".dll";
-                var resource = Array.Find(GetType().Assembly.GetManifestResourceNames(),
-                                          element => element.EndsWith(resourceName));
+                var resource = Array.Find(GetType().Assembly.GetManifestResourceNames(), element => element.EndsWith(resourceName));
+                for (int i = 0; i < GetType().Assembly.GetManifestResourceNames().Count(); i++)
+                {
+                    if (GetType().Assembly.GetManifestResourceNames().ElementAt(0).EndsWith(resourceName))
+                    {
+                        Console.WriteLine();
+                    }
+                }
 
                 using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resource))
                 {
