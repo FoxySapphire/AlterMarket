@@ -98,6 +98,7 @@ namespace AlterMarket
                             // Check if the url contains mediafire.com.
                             if (sub.Download.Contains("mediafire.com"))
                             {
+                                MessageBox.Show("Please have patience, but if nothing happens, try downloading your file again.", Application.ProductName);
                                 // Set the user agent to chrome (to prevent captcha as much as possible).
                                 webBrowser1.Navigate(sub.Download, null, null, "User-Agent: Chrome/27.0.1453.94");
                                 return;
@@ -117,15 +118,21 @@ namespace AlterMarket
                 return;
 
             // Save the HTML to a string.
-            var html = webBrowser1.Document.Body.InnerHtml;
+            if (webBrowser1.Document != null)
+            {
+                if (webBrowser1.Document.Body != null)
+                {
+                    var html = webBrowser1.Document.Body.InnerHtml;
 
-            // The html document we send to our function.
-            HtmlDocument doc = new HtmlDocument();
-            doc.LoadHtml(html);
+                    // The html document we send to our function.
+                    HtmlDocument doc = new HtmlDocument();
+                    doc.LoadHtml(html);
 
-            // Send the html document so we can search for the download link.
-            string url = Mediafire.GetUrl(doc);
-            Process.Start(url);
+                    // Send the html document so we can search for the download link.
+                    string url = Mediafire.GetUrl(doc);
+                    Process.Start(url);
+                }
+            }
         }
 
         /// <summary>
@@ -299,21 +306,17 @@ namespace AlterMarket
                 e.Cancel = true;
             }
         }
-
-        private void webBrowser1_FileDownload(object sender, EventArgs e)
-        {
-
-        }
-
-        private void webBrowser1_NewWindow(object sender, CancelEventArgs e)
-        {
-
-        }
     }
+
+    /// <summary>
+    /// This class simply changes Bytes into KB, MG, GB or TB.
+    /// </summary>
     public class ByteCountFormatter
     {
+        /// <summary>
+        /// The size we want to format.
+        /// </summary>
         public long DataSize { get; set; }
-        public DateTime Time { get; set; }
 
         /// <summary>
         /// This method converts a # amount of bytes into a readable string.
