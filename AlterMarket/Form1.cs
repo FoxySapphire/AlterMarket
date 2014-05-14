@@ -24,13 +24,13 @@ namespace AlterMarket
 
         public Form1()
         {
-            // This piece of code let's us embed the dll files into our application.
             #region - Detect Dll Files -
 
+            // This piece of code let's us embed the dll files into our application.
             AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
             {
-                var resourceName = new AssemblyName(args.Name).Name + ".dll";
-                var resource = Array.Find(GetType().Assembly.GetManifestResourceNames(), element => element.EndsWith(resourceName));
+                string resourceName = new AssemblyName(args.Name).Name + ".dll";
+                string resource = Array.Find(GetType().Assembly.GetManifestResourceNames(), element => element.EndsWith(resourceName));
                 for (int i = 0; i < GetType().Assembly.GetManifestResourceNames().Count(); i++)
                 {
                     if (GetType().Assembly.GetManifestResourceNames().ElementAt(0).EndsWith(resourceName))
@@ -41,7 +41,7 @@ namespace AlterMarket
 
                 using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resource))
                 {
-                    var assemblyData = new Byte[stream.Length];
+                    byte[] assemblyData = new Byte[stream.Length];
                     stream.Read(assemblyData, 0, assemblyData.Length);
                     return Assembly.Load(assemblyData);
                 }
@@ -54,11 +54,15 @@ namespace AlterMarket
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // Show the appliaction version at the bottom left.
+            lblVersion.Text = Application.ProductVersion;
+
             LoadGames();
         }
 
         private void lstvGames_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Only retrieve the sub items if the item we clicked has items.
             if (lstvGames.SelectedIndices.Count <= 0)
             {
                 return;
