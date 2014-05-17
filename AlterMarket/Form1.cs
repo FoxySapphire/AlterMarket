@@ -178,6 +178,8 @@ namespace AlterMarket
                 Console.WriteLine("Adding Items");
                 // Clear the items collection to prevent double items.
                 lstvGames.Items.Clear();
+                // Clear the image list to prevent double/missing images.
+                imglstGames.Images.Clear();
                 // Scan through the collection of items.
                 for (int index = 0; index < Collections.ListGames.Count; index++)
                 {
