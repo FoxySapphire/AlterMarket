@@ -53,6 +53,7 @@
             this.reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.bgwrkLoadItem = new System.ComponentModel.BackgroundWorker();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -129,6 +130,7 @@
             this.lstvGames.UseCompatibleStateImageBehavior = false;
             this.lstvGames.View = System.Windows.Forms.View.Details;
             this.lstvGames.SelectedIndexChanged += new System.EventHandler(this.lstvGames_SelectedIndexChanged);
+            this.lstvGames.SizeChanged += new System.EventHandler(this.lstvGames_SizeChanged);
             // 
             // clmGames
             // 
@@ -269,7 +271,8 @@
             // gamesToolStripMenuItem
             // 
             this.gamesToolStripMenuItem.Name = "gamesToolStripMenuItem";
-            this.gamesToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.gamesToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.gamesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.gamesToolStripMenuItem.Text = "Games";
             this.gamesToolStripMenuItem.Click += new System.EventHandler(this.gamesToolStripMenuItem_Click);
             // 
@@ -280,6 +283,14 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(609, 364);
             this.panel2.TabIndex = 3;
+            // 
+            // bgwrkLoadItem
+            // 
+            this.bgwrkLoadItem.WorkerReportsProgress = true;
+            this.bgwrkLoadItem.WorkerSupportsCancellation = true;
+            this.bgwrkLoadItem.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwrkLoadItem_DoWork);
+            this.bgwrkLoadItem.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgwrkLoadItem_ProgressChanged);
+            this.bgwrkLoadItem.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwrkLoadItem_RunWorkerCompleted);
             // 
             // Form1
             // 
@@ -338,6 +349,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
         private System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.Panel panel2;
+        private System.ComponentModel.BackgroundWorker bgwrkLoadItem;
     }
 }
 

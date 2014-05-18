@@ -59,5 +59,15 @@ namespace AlterMarket.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon not_found {
+            get {
+                object obj = ResourceManager.GetObject("not_found", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }

@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AlterMarket.logic;
+using AlterMarket.Properties;
 using Newtonsoft.Json;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
@@ -57,7 +58,8 @@ namespace AlterMarket
             // Show the appliaction version at the bottom left.
             lblVersion.Text = Application.ProductVersion;
 
-            LoadGames();
+            //LoadGames();
+            bgwrkLoadItem.RunWorkerAsync();
         }
 
         private void lstvGames_SelectedIndexChanged(object sender, EventArgs e)
@@ -119,7 +121,9 @@ namespace AlterMarket
         {
             // Wait for the page to be fully loaded.
             if (e.Url.AbsolutePath != ((WebBrowser) sender).Url.AbsolutePath)
+            {
                 return;
+            }
 
             // Save the HTML to a string.
             if (webBrowser1.Document != null)
@@ -149,7 +153,7 @@ namespace AlterMarket
             try
             {
                 // Set the proxy to null to reduce a lot of time.
-                WebClient wc = new WebClient { Proxy = null };
+                WebClient wc = new WebClient {Proxy = null};
                 // Download and save the json.
                 string downloadLink = wc.DownloadString("http://darkshadw.com/game_patcher/index.php");
                 // Deserialize the JSON and put it in a list for later use.
@@ -185,10 +189,8 @@ namespace AlterMarket
                 {
                     // The game we are adding.
                     Collections.Items game = Collections.ListGames[index];
-
                     // Create the ListViewItem.
                     ListViewItem lvitem = new ListViewItem();
-
                     // Set the ListViewItem's text.
                     lvitem.Text = game.Name;
                     // Tell where to put the image.
@@ -197,24 +199,40 @@ namespace AlterMarket
                     // Check if the game contains an icon
                     if (!string.IsNullOrEmpty(game.Icon))
                     {
-                        // Download and add the image for the imagelist.
-                        using (WebClient webClient = new WebClient())
+                        if (UrlExists(game.Icon))
                         {
-                            byte[] bitmapData = webClient.DownloadData(game.Icon);
-
-                            // Bitmap data => bitmap => resized bitmap.
-                            using (MemoryStream memoryStream = new MemoryStream(bitmapData))
-                            using (Bitmap bitmap = new Bitmap(memoryStream))
-                            using (Bitmap resizedBitmap = new Bitmap(bitmap, 16, 16))
+                            // Download and add the image for the imagelist.
+                            using (WebClient webClient = new WebClient())
                             {
-                                //Logic.Collections.LvGamesSubsCollection.Add(lvitem);
-                                imglstGames.Images.Add(resizedBitmap);
+                                byte[] bitmapData = webClient.DownloadData(game.Icon);
+
+                                // Bitmap data => bitmap => resized bitmap.
+                                using (MemoryStream memoryStream = new MemoryStream(bitmapData))
+                                using (Bitmap bitmap = new Bitmap(memoryStream))
+                                using (Bitmap resizedBitmap = new Bitmap(bitmap, 16, 16))
+                                {
+                                    //Logic.Collections.LvGamesSubsCollection.Add(lvitem);
+                                    imglstGames.Images.Add(resizedBitmap);
+                                }
                             }
                         }
-                    }
+                        else
+                        {
+                            // The image url is empty, let's fill in our own image.
+                            imglstGames.Images.Add(Resources.not_found);
+                        }
 
-                    // Add the items to the ListView.
-                    lstvGames.Items.Add(lvitem);
+                        if (lstvGames.InvokeRequired)
+                        {
+                            // This let's use access the UI thread to prevent a crash.
+                            lstvGames.Invoke(new MethodInvoker(delegate { lstvGames.Items.Add(lvitem); }));
+                        }
+                        else
+                        {
+                            // Add the listview item if we aren't on a seperate thread (I don't think this will ever happen as we're running this via a backgroundworker).
+                            lstvGames.Items.Add(lvitem);
+                        }
+                    }
                 }
             }
             catch (Exception exception)
@@ -222,9 +240,31 @@ namespace AlterMarket
 
             }
 
-            lstvGames.Sorting = SortOrder.Ascending;
-
             #endregion
+        }
+
+        /// <summary>
+        /// This piece of code checks if a URL exists.
+        /// </summary>
+        /// <param name="url">The URL to check.</param>
+        /// <returns>True or false.</returns>
+        private static bool UrlExists(string url)
+        {
+            try
+            {
+                new WebClient().DownloadData(url);
+                {
+                    return true;
+                }
+            }
+            catch (WebException e)
+            {
+                if (((HttpWebResponse) e.Response).StatusCode == HttpStatusCode.NotFound)
+                {
+                    return false;
+                }
+                throw;
+            }
         }
 
         /// <summary>
@@ -312,6 +352,34 @@ namespace AlterMarket
                 e.Cancel = true;
             }
         }
+
+        #region Backgroundworkers
+
+        #region Backgroundworker for the listview with games
+
+        private void bgwrkLoadItem_DoWork(object sender, DoWorkEventArgs e)
+        {
+            LoadGames();
+        }
+
+        private void bgwrkLoadItem_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+
+        }
+
+        private void bgwrkLoadItem_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+
+        }
+
+        #endregion
+
+        private void lstvGames_SizeChanged(object sender, EventArgs e)
+        {
+            lstvGames.Columns[0].Width = -2;
+        }
+
+        #endregion
     }
 
     /// <summary>
