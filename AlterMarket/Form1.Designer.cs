@@ -35,6 +35,8 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lstvGames = new System.Windows.Forms.ListView();
             this.clmGames = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.menuGames = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.iconsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imglstGames = new System.Windows.Forms.ImageList(this.components);
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.lstvwGamesSubs = new System.Windows.Forms.ListView();
@@ -44,7 +46,7 @@
             this.downloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imglstGamesSubs = new System.Windows.Forms.ImageList(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblItems = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -54,6 +56,7 @@
             this.gamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
             this.bgwrkLoadItem = new System.ComponentModel.BackgroundWorker();
+            this.clmHost = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -61,6 +64,7 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.menuGames.SuspendLayout();
             this.menuGamesSubs.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -118,6 +122,7 @@
             // 
             this.lstvGames.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.clmGames});
+            this.lstvGames.ContextMenuStrip = this.menuGames;
             this.lstvGames.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstvGames.FullRowSelect = true;
             this.lstvGames.GridLines = true;
@@ -136,6 +141,23 @@
             // 
             this.clmGames.Text = "Games";
             this.clmGames.Width = 162;
+            // 
+            // menuGames
+            // 
+            this.menuGames.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.iconsToolStripMenuItem});
+            this.menuGames.Name = "menuGames";
+            this.menuGames.Size = new System.Drawing.Size(103, 26);
+            // 
+            // iconsToolStripMenuItem
+            // 
+            this.iconsToolStripMenuItem.Checked = true;
+            this.iconsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.iconsToolStripMenuItem.Enabled = false;
+            this.iconsToolStripMenuItem.Name = "iconsToolStripMenuItem";
+            this.iconsToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
+            this.iconsToolStripMenuItem.Text = "Icons";
+            this.iconsToolStripMenuItem.Click += new System.EventHandler(this.iconsToolStripMenuItem_Click);
             // 
             // imglstGames
             // 
@@ -159,7 +181,8 @@
             // 
             this.lstvwGamesSubs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.clmSub,
-            this.clmSize});
+            this.clmSize,
+            this.clmHost});
             this.lstvwGamesSubs.ContextMenuStrip = this.menuGamesSubs;
             this.lstvwGamesSubs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstvwGamesSubs.FullRowSelect = true;
@@ -176,12 +199,12 @@
             // clmSub
             // 
             this.clmSub.Text = "Item";
-            this.clmSub.Width = 325;
+            this.clmSub.Width = 225;
             // 
             // clmSize
             // 
             this.clmSize.Text = "Size";
-            this.clmSize.Width = 96;
+            this.clmSize.Width = 98;
             // 
             // menuGamesSubs
             // 
@@ -207,7 +230,7 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
+            this.lblItems,
             this.toolStripStatusLabel2,
             this.toolStripStatusLabel3,
             this.toolStripStatusLabel5,
@@ -218,11 +241,11 @@
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // toolStripStatusLabel1
+            // lblItems
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(45, 17);
-            this.toolStripStatusLabel1.Text = "0 Items";
+            this.lblItems.Name = "lblItems";
+            this.lblItems.Size = new System.Drawing.Size(45, 17);
+            this.lblItems.Text = "0 Items";
             // 
             // toolStripStatusLabel2
             // 
@@ -292,6 +315,11 @@
             this.bgwrkLoadItem.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgwrkLoadItem_ProgressChanged);
             this.bgwrkLoadItem.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwrkLoadItem_RunWorkerCompleted);
             // 
+            // clmHost
+            // 
+            this.clmHost.Text = "Host";
+            this.clmHost.Width = 98;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -313,6 +341,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.menuGames.ResumeLayout(false);
             this.menuGamesSubs.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -340,7 +369,7 @@
         private System.Windows.Forms.ToolStripMenuItem gamesToolStripMenuItem;
         private System.Windows.Forms.ImageList imglstGames;
         private System.Windows.Forms.ImageList imglstGamesSubs;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel lblItems;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ContextMenuStrip menuGamesSubs;
@@ -350,6 +379,9 @@
         private System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.Panel panel2;
         private System.ComponentModel.BackgroundWorker bgwrkLoadItem;
+        private System.Windows.Forms.ContextMenuStrip menuGames;
+        private System.Windows.Forms.ToolStripMenuItem iconsToolStripMenuItem;
+        private System.Windows.Forms.ColumnHeader clmHost;
     }
 }
 

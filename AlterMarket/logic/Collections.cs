@@ -41,6 +41,7 @@ namespace AlterMarket.logic
             public string Sub { get; set; }
             public string Description { get; set; }
             public string Download { get; set; }
+            public string Host { get; set; }
             public decimal Size { get; set; }
         }
     }

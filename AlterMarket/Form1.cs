@@ -58,7 +58,6 @@ namespace AlterMarket
             // Show the appliaction version at the bottom left.
             lblVersion.Text = Application.ProductVersion;
 
-            //LoadGames();
             bgwrkLoadItem.RunWorkerAsync();
         }
 
@@ -79,7 +78,7 @@ namespace AlterMarket
 
         private void gamesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LoadGames();
+            bgwrkLoadItem.RunWorkerAsync();
         }
 
         private void downloadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -232,6 +231,7 @@ namespace AlterMarket
                             // Add the listview item if we aren't on a seperate thread (I don't think this will ever happen as we're running this via a backgroundworker).
                             lstvGames.Items.Add(lvitem);
                         }
+                        lblItems.Text = lstvGames.Items.Count + " Items";
                     }
                 }
             }
@@ -306,8 +306,10 @@ namespace AlterMarket
 
                             // Set the ListViewItem's text.
                             lvitem.Text = sub.Name;
-                            // Add the ListViewItem's subitem.
+                            // Add the ListViewItem's first subitem.
                             lvitem.SubItems.Add(ByteCountFormatter.FormatBytes((long)sub.Size));
+                            // Add the ListViewItem's second subitem.
+                            lvitem.SubItems.Add(sub.Host);
                             // Tell where to put the image.
                             lvitem.ImageIndex = index;
 
@@ -380,6 +382,20 @@ namespace AlterMarket
         }
 
         #endregion
+
+        private void iconsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (iconsToolStripMenuItem.Checked)
+            {
+                lstvGames.SmallImageList = imglstGames;
+                iconsToolStripMenuItem.Checked = false;
+            }
+            else
+            {
+                lstvGames.LargeImageList.Dispose();
+                iconsToolStripMenuItem.Checked = true;
+            }
+        }
     }
 
     /// <summary>
