@@ -42,6 +42,7 @@
             this.lstvwGamesSubs = new System.Windows.Forms.ListView();
             this.clmSub = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clmSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.clmHost = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuGamesSubs = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.downloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imglstGamesSubs = new System.Windows.Forms.ImageList(this.components);
@@ -56,7 +57,8 @@
             this.gamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
             this.bgwrkLoadItem = new System.ComponentModel.BackgroundWorker();
-            this.clmHost = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkForUupdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -206,6 +208,11 @@
             this.clmSize.Text = "Size";
             this.clmSize.Width = 98;
             // 
+            // clmHost
+            // 
+            this.clmHost.Text = "Host";
+            this.clmHost.Width = 98;
+            // 
             // menuGamesSubs
             // 
             this.menuGamesSubs.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -276,7 +283,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.reloadToolStripMenuItem});
+            this.reloadToolStripMenuItem,
+            this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(609, 24);
@@ -295,7 +303,7 @@
             // 
             this.gamesToolStripMenuItem.Name = "gamesToolStripMenuItem";
             this.gamesToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.gamesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.gamesToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.gamesToolStripMenuItem.Text = "Games";
             this.gamesToolStripMenuItem.Click += new System.EventHandler(this.gamesToolStripMenuItem_Click);
             // 
@@ -315,10 +323,20 @@
             this.bgwrkLoadItem.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgwrkLoadItem_ProgressChanged);
             this.bgwrkLoadItem.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwrkLoadItem_RunWorkerCompleted);
             // 
-            // clmHost
+            // aboutToolStripMenuItem
             // 
-            this.clmHost.Text = "Host";
-            this.clmHost.Width = 98;
+            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.checkForUupdatesToolStripMenuItem});
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
+            // checkForUupdatesToolStripMenuItem
+            // 
+            this.checkForUupdatesToolStripMenuItem.Name = "checkForUupdatesToolStripMenuItem";
+            this.checkForUupdatesToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.checkForUupdatesToolStripMenuItem.Text = "Check for Updates";
+            this.checkForUupdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUupdatesToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -382,6 +400,8 @@
         private System.Windows.Forms.ContextMenuStrip menuGames;
         private System.Windows.Forms.ToolStripMenuItem iconsToolStripMenuItem;
         private System.Windows.Forms.ColumnHeader clmHost;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem checkForUupdatesToolStripMenuItem;
     }
 }
 

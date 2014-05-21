@@ -16,6 +16,7 @@ using AlterMarket.logic;
 using AlterMarket.Properties;
 using Newtonsoft.Json;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
+using FoxyUpdater;
 
 namespace AlterMarket
 {
@@ -51,6 +52,12 @@ namespace AlterMarket
             #endregion
 
             InitializeComponent();
+
+            DirectoryInfo di = new DirectoryInfo(Application.StartupPath);
+            foreach (FileInfo fi in di.GetFiles("*.old", SearchOption.TopDirectoryOnly))
+            {
+                fi.Delete();
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -374,6 +381,20 @@ namespace AlterMarket
             }
         }
 
+        private void iconsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (iconsToolStripMenuItem.Checked)
+            {
+                lstvGames.SmallImageList = imglstGames;
+                iconsToolStripMenuItem.Checked = false;
+            }
+            else
+            {
+                lstvGames.LargeImageList.Dispose();
+                iconsToolStripMenuItem.Checked = true;
+            }
+        }
+
         #region Backgroundworkers
 
         #region Backgroundworker for the listview with games
@@ -402,18 +423,11 @@ namespace AlterMarket
 
         #endregion
 
-        private void iconsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void checkForUupdatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (iconsToolStripMenuItem.Checked)
-            {
-                lstvGames.SmallImageList = imglstGames;
-                iconsToolStripMenuItem.Checked = false;
-            }
-            else
-            {
-                lstvGames.LargeImageList.Dispose();
-                iconsToolStripMenuItem.Checked = true;
-            }
+            Updater updater = new Updater();
+            updater.UpdateUrl = "http://darkshadw.com/game_patcher/UpdateInfo.dat";
+            updater.CheckForUpdates();
         }
     }
 

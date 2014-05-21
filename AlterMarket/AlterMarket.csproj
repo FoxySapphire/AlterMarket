@@ -32,9 +32,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FoxyUpdater">
+      <HintPath>dlls\FoxyUpdater.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.6.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>dlls\HtmlAgilityPack.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Ionic.Zip">
       <HintPath>dlls\Ionic.Zip.dll</HintPath>
@@ -106,8 +111,11 @@
     <EmbeddedResource Include="dlls\Microsoft.VisualBasic.PowerPacks.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="dlls\HtmlAgilityPack.dll" />
+    <EmbeddedResource Include="dlls\HtmlAgilityPack.dll" />
     <None Include="Resources\not_found.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="dlls\FoxyUpdater.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
