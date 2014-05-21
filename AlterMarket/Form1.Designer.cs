@@ -55,10 +55,11 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.bgwrkLoadItem = new System.ComponentModel.BackgroundWorker();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUupdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.bgwrkLoadItem = new System.ComponentModel.BackgroundWorker();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -303,9 +304,25 @@
             // 
             this.gamesToolStripMenuItem.Name = "gamesToolStripMenuItem";
             this.gamesToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.gamesToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.gamesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.gamesToolStripMenuItem.Text = "Games";
             this.gamesToolStripMenuItem.Click += new System.EventHandler(this.gamesToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.checkForUupdatesToolStripMenuItem,
+            this.helpToolStripMenuItem});
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
+            // checkForUupdatesToolStripMenuItem
+            // 
+            this.checkForUupdatesToolStripMenuItem.Name = "checkForUupdatesToolStripMenuItem";
+            this.checkForUupdatesToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.checkForUupdatesToolStripMenuItem.Text = "Check for Updates";
+            this.checkForUupdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUupdatesToolStripMenuItem_Click);
             // 
             // panel2
             // 
@@ -323,20 +340,11 @@
             this.bgwrkLoadItem.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgwrkLoadItem_ProgressChanged);
             this.bgwrkLoadItem.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwrkLoadItem_RunWorkerCompleted);
             // 
-            // aboutToolStripMenuItem
+            // helpToolStripMenuItem
             // 
-            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.checkForUupdatesToolStripMenuItem});
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.aboutToolStripMenuItem.Text = "About";
-            // 
-            // checkForUupdatesToolStripMenuItem
-            // 
-            this.checkForUupdatesToolStripMenuItem.Name = "checkForUupdatesToolStripMenuItem";
-            this.checkForUupdatesToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.checkForUupdatesToolStripMenuItem.Text = "Check for Updates";
-            this.checkForUupdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUupdatesToolStripMenuItem_Click);
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.helpToolStripMenuItem.Text = "Help";
             // 
             // Form1
             // 
@@ -402,6 +410,7 @@
         private System.Windows.Forms.ColumnHeader clmHost;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem checkForUupdatesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
     }
 }
 
