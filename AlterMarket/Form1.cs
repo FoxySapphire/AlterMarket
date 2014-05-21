@@ -180,9 +180,23 @@ namespace AlterMarket
             {
                 Console.WriteLine("Adding Items");
                 // Clear the items collection to prevent double items.
-                lstvGames.Items.Clear();
+
+                if (lstvGames.InvokeRequired)
+                {
+                    // This let's use access the UI thread to prevent a crash.
+                    lstvGames.Invoke(new MethodInvoker(delegate { lstvGames.Items.Clear(); }));
+                    lstvGames.Invoke(new MethodInvoker(delegate { lstvwGamesSubs.Items.Clear(); }));
+                    lstvGames.Invoke(new MethodInvoker(delegate { imglstGames.Images.Clear(); }));
+                }
+                else
+                {
+                    lstvGames.Items.Clear();
+                    lstvwGamesSubs.Items.Clear();
+                    imglstGames.Images.Clear();
+                }
+                
                 // Clear the image list to prevent double/missing images.
-                imglstGames.Images.Clear();
+                
                 // Scan through the collection of items.
                 for (int index = 0; index < Collections.ListGames.Count; index++)
                 {
@@ -217,22 +231,27 @@ namespace AlterMarket
                         }
                         else
                         {
-                            // The image url is empty, let's fill in our own image.
+                            // The image url is invalid, let's fill in our own image.
                             imglstGames.Images.Add(Resources.not_found);
                         }
-
-                        if (lstvGames.InvokeRequired)
-                        {
-                            // This let's use access the UI thread to prevent a crash.
-                            lstvGames.Invoke(new MethodInvoker(delegate { lstvGames.Items.Add(lvitem); }));
-                        }
-                        else
-                        {
-                            // Add the listview item if we aren't on a seperate thread (I don't think this will ever happen as we're running this via a backgroundworker).
-                            lstvGames.Items.Add(lvitem);
-                        }
-                        lblItems.Text = lstvGames.Items.Count + " Items";
                     }
+                    else
+                    {
+                        // The image url is empty, let's fill in our own image.
+                        imglstGames.Images.Add(Resources.not_found);
+                    }
+
+                    if (lstvGames.InvokeRequired)
+                    {
+                        // This let's use access the UI thread to prevent a crash.
+                        lstvGames.Invoke(new MethodInvoker(delegate { lstvGames.Items.Add(lvitem); }));
+                    }
+                    else
+                    {
+                        // Add the listview item if we aren't on a seperate thread (I don't think this will ever happen as we're running this via a backgroundworker).
+                        lstvGames.Items.Add(lvitem);
+                    }
+                    lblItems.Text = lstvGames.Items.Count + " Items";
                 }
             }
             catch (Exception exception)
