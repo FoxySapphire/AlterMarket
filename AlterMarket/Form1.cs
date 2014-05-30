@@ -62,6 +62,10 @@ namespace AlterMarket
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Updater updater = new Updater();
+            updater.UpdateUrl = "http://darkshadw.com/game_patcher/UpdateInfo.dat";
+            updater.CheckForUpdates(false);
+
             // Show the appliaction version at the bottom left.
             lblVersion.Text = Application.ProductVersion;
 
@@ -422,7 +426,7 @@ namespace AlterMarket
         {
             Updater updater = new Updater();
             updater.UpdateUrl = "http://darkshadw.com/game_patcher/UpdateInfo.dat";
-            updater.CheckForUpdates();
+            updater.CheckForUpdates(true);
         }
 
         private void chkOffline_CheckedChanged(object sender, EventArgs e)
