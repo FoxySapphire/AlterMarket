@@ -90,8 +90,9 @@ namespace AlterMarket
             if (intselectedindex >= 0)
             {
                 _selectedGame = lstvGames.Items[intselectedindex].Index;
-            } 
-            LoadGamesSubs();
+            }
+            bgwrkLoadItemSub.RunWorkerAsync();
+            //LoadGamesSubs();
         }
 
         private void gamesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -301,12 +302,6 @@ namespace AlterMarket
         {
             #region Add the subitems to the ListView
 
-            // Check if an item is selected.
-            if (lstvGames.SelectedItems.Count == 0)
-            {
-                return;
-            }
-
             try
             {
                 Console.WriteLine("Adding Subitems");
@@ -315,11 +310,13 @@ namespace AlterMarket
                 // Clear the imagelist to prevent double images.
                 imglstGamesSubs.Images.Clear();
 
+                ListViewItem lvitemGame = new ListViewItem();
+                lstvGames.Invoke(new MethodInvoker(delegate { lvitemGame = lstvGames.SelectedItems[0]; }));
                 // Scan through the collection of items.
                 foreach (var game in Collections.ListGames)
                 {
                     // Only add the items of the currently selected item.
-                    if (game.Name == lstvGames.SelectedItems[0].Text)
+                    if (game.Name == lvitemGame.Text)
                     {
                         // Only continue if there are subs, else cancel (saves time and errors).
                         if (game.Subs == null || game.Subs.Count == 0) continue;
@@ -364,17 +361,18 @@ namespace AlterMarket
                             if (lvitem.SubItems[2].Text == "Offline" && chkOffline.Checked)
                             {
                                 // Add the items to the ListView.
-                                lstvwGamesSubs.Items.Add(lvitem);
+                                lstvGames.Invoke(new MethodInvoker(delegate { lstvwGamesSubs.Items.Add(lvitem); }));
+                                
                             }
                             else if (lvitem.SubItems[2].Text == "LAN" && chkLan.Checked)
                             {
                                 // Add the items to the ListView.
-                                lstvwGamesSubs.Items.Add(lvitem);
+                                lstvGames.Invoke(new MethodInvoker(delegate { lstvwGamesSubs.Items.Add(lvitem); }));
                             }
                             else if (lvitem.SubItems[2].Text == "Online" && chkOnline.Checked)
                             {
                                 // Add the items to the ListView.
-                                lstvwGamesSubs.Items.Add(lvitem);
+                                lstvGames.Invoke(new MethodInvoker(delegate { lstvwGamesSubs.Items.Add(lvitem); }));
                             }
                         }
                     }
@@ -430,7 +428,27 @@ namespace AlterMarket
 
         }
 
+        #endregion Backgroundworker for the listview with subs
+
+        #region
+
+        private void bgwrkLoadItemSub_DoWork(object sender, DoWorkEventArgs e)
+        {
+            LoadGamesSubs();
+        }
+
+        private void bgwrkLoadItemSub_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+
+        }
+
+        private void bgwrkLoadItemSub_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+
+        }
+
         #endregion
+
 
         private void lstvGames_SizeChanged(object sender, EventArgs e)
         {
@@ -483,6 +501,11 @@ namespace AlterMarket
                 }
                 throw;
             }
+        }
+
+        private void lblMadeBy_Click(object sender, EventArgs e)
+        {
+            Process.Start("http://steamcommunity.com/id/FoxySapphire");
         }
     }
 

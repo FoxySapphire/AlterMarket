@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -54,17 +55,18 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblItems = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblMadeBy = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUupdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
             this.bgwrkLoadItem = new System.ComponentModel.BackgroundWorker();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.bgwrkLoadItemSub = new System.ComponentModel.BackgroundWorker();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -304,7 +306,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblItems,
             this.toolStripStatusLabel2,
-            this.toolStripStatusLabel3,
+            this.lblMadeBy,
             this.toolStripStatusLabel5,
             this.lblVersion});
             this.statusStrip1.Location = new System.Drawing.Point(0, 415);
@@ -325,13 +327,14 @@
             this.toolStripStatusLabel2.Size = new System.Drawing.Size(507, 17);
             this.toolStripStatusLabel2.Spring = true;
             // 
-            // toolStripStatusLabel3
+            // lblMadeBy
             // 
-            this.toolStripStatusLabel3.IsLink = true;
-            this.toolStripStatusLabel3.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(126, 17);
-            this.toolStripStatusLabel3.Text = "Made by FoxySapphire";
+            this.lblMadeBy.IsLink = true;
+            this.lblMadeBy.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.lblMadeBy.Name = "lblMadeBy";
+            this.lblMadeBy.Size = new System.Drawing.Size(126, 17);
+            this.lblMadeBy.Text = "Made by FoxySapphire";
+            this.lblMadeBy.Click += new System.EventHandler(this.lblMadeBy_Click);
             // 
             // toolStripStatusLabel5
             // 
@@ -349,7 +352,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.reloadToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(751, 24);
@@ -368,17 +371,17 @@
             // 
             this.gamesToolStripMenuItem.Name = "gamesToolStripMenuItem";
             this.gamesToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.gamesToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.gamesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.gamesToolStripMenuItem.Text = "Games";
             this.gamesToolStripMenuItem.Click += new System.EventHandler(this.gamesToolStripMenuItem_Click);
             // 
-            // aboutToolStripMenuItem
+            // helpToolStripMenuItem
             // 
-            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.checkForUupdatesToolStripMenuItem});
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.aboutToolStripMenuItem.Text = "About";
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
             // 
             // checkForUupdatesToolStripMenuItem
             // 
@@ -403,6 +406,14 @@
             this.bgwrkLoadItem.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgwrkLoadItem_ProgressChanged);
             this.bgwrkLoadItem.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwrkLoadItem_RunWorkerCompleted);
             // 
+            // bgwrkLoadItemSub
+            // 
+            this.bgwrkLoadItemSub.WorkerReportsProgress = true;
+            this.bgwrkLoadItemSub.WorkerSupportsCancellation = true;
+            this.bgwrkLoadItemSub.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwrkLoadItemSub_DoWork);
+            this.bgwrkLoadItemSub.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgwrkLoadItemSub_ProgressChanged);
+            this.bgwrkLoadItemSub.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwrkLoadItemSub_RunWorkerCompleted);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -412,6 +423,7 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.statusStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -455,7 +467,7 @@
         private System.Windows.Forms.ImageList imglstGames;
         private System.Windows.Forms.ImageList imglstGamesSubs;
         private System.Windows.Forms.ToolStripStatusLabel lblItems;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
+        private System.Windows.Forms.ToolStripStatusLabel lblMadeBy;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ContextMenuStrip menuGamesSubs;
         private System.Windows.Forms.ToolStripMenuItem downloadToolStripMenuItem;
@@ -467,7 +479,7 @@
         private System.Windows.Forms.ContextMenuStrip menuGames;
         private System.Windows.Forms.ToolStripMenuItem iconsToolStripMenuItem;
         private System.Windows.Forms.ColumnHeader clmHost;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem checkForUupdatesToolStripMenuItem;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.CheckBox chkOffline;
@@ -475,6 +487,7 @@
         private System.Windows.Forms.CheckBox chkOnline;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ColumnHeader clmType;
+        private System.ComponentModel.BackgroundWorker bgwrkLoadItemSub;
     }
 }
 
