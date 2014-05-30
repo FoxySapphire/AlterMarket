@@ -12,10 +12,6 @@ namespace AlterMarket.logic
         /// <summary>
         /// This list contains all the applications and its contents.
         /// </summary>
-        public static readonly List<Items> ListApplications = new List<Items>();
-        /// <summary>
-        /// This list contains all the applications and its contents.
-        /// </summary>
         public static readonly List<Items> ListGames = new List<Items>();
 
         /// <summary>
@@ -42,6 +38,7 @@ namespace AlterMarket.logic
             public string Description { get; set; }
             public string Download { get; set; }
             public string Host { get; set; }
+            public string Type { get; set; }
             public decimal Size { get; set; }
         }
     }

@@ -38,14 +38,19 @@
             this.menuGames = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.iconsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imglstGames = new System.Windows.Forms.ImageList(this.components);
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.lstvwGamesSubs = new System.Windows.Forms.ListView();
             this.clmSub = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clmSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.clmType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clmHost = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuGamesSubs = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.downloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imglstGamesSubs = new System.Windows.Forms.ImageList(this.components);
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.chkOnline = new System.Windows.Forms.CheckBox();
+            this.chkOffline = new System.Windows.Forms.CheckBox();
+            this.chkLan = new System.Windows.Forms.CheckBox();
+            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblItems = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -55,10 +60,11 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.bgwrkLoadItem = new System.ComponentModel.BackgroundWorker();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUupdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.bgwrkLoadItem = new System.ComponentModel.BackgroundWorker();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -68,6 +74,7 @@
             this.splitContainer1.SuspendLayout();
             this.menuGames.SuspendLayout();
             this.menuGamesSubs.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -78,7 +85,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(609, 364);
+            this.panel1.Size = new System.Drawing.Size(751, 391);
             this.panel1.TabIndex = 0;
             // 
             // tabControl1
@@ -88,7 +95,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(609, 364);
+            this.tabControl1.Size = new System.Drawing.Size(751, 391);
             this.tabControl1.TabIndex = 3;
             // 
             // tabPage2
@@ -98,7 +105,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(601, 338);
+            this.tabPage2.Size = new System.Drawing.Size(743, 365);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Games";
             // 
@@ -114,10 +121,11 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.webBrowser1);
             this.splitContainer1.Panel2.Controls.Add(this.lstvwGamesSubs);
-            this.splitContainer1.Size = new System.Drawing.Size(595, 332);
-            this.splitContainer1.SplitterDistance = 166;
+            this.splitContainer1.Panel2.Controls.Add(this.panel3);
+            this.splitContainer1.Panel2.Controls.Add(this.webBrowser1);
+            this.splitContainer1.Size = new System.Drawing.Size(737, 359);
+            this.splitContainer1.SplitterDistance = 204;
             this.splitContainer1.TabIndex = 0;
             // 
             // lstvGames
@@ -131,7 +139,7 @@
             this.lstvGames.Location = new System.Drawing.Point(0, 0);
             this.lstvGames.MultiSelect = false;
             this.lstvGames.Name = "lstvGames";
-            this.lstvGames.Size = new System.Drawing.Size(166, 332);
+            this.lstvGames.Size = new System.Drawing.Size(204, 359);
             this.lstvGames.SmallImageList = this.imglstGames;
             this.lstvGames.TabIndex = 0;
             this.lstvGames.UseCompatibleStateImageBehavior = false;
@@ -142,7 +150,7 @@
             // clmGames
             // 
             this.clmGames.Text = "Games";
-            this.clmGames.Width = 162;
+            this.clmGames.Width = 200;
             // 
             // menuGames
             // 
@@ -167,23 +175,12 @@
             this.imglstGames.ImageSize = new System.Drawing.Size(16, 16);
             this.imglstGames.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // webBrowser1
-            // 
-            this.webBrowser1.Location = new System.Drawing.Point(400, 309);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(20, 20);
-            this.webBrowser1.TabIndex = 1;
-            this.webBrowser1.Visible = false;
-            this.webBrowser1.WebBrowserShortcutsEnabled = false;
-            this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.BrowserDocumentCompleted);
-            // 
             // lstvwGamesSubs
             // 
             this.lstvwGamesSubs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.clmSub,
             this.clmSize,
+            this.clmType,
             this.clmHost});
             this.lstvwGamesSubs.ContextMenuStrip = this.menuGamesSubs;
             this.lstvwGamesSubs.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -192,7 +189,7 @@
             this.lstvwGamesSubs.Location = new System.Drawing.Point(0, 0);
             this.lstvwGamesSubs.MultiSelect = false;
             this.lstvwGamesSubs.Name = "lstvwGamesSubs";
-            this.lstvwGamesSubs.Size = new System.Drawing.Size(425, 332);
+            this.lstvwGamesSubs.Size = new System.Drawing.Size(529, 307);
             this.lstvwGamesSubs.SmallImageList = this.imglstGamesSubs;
             this.lstvwGamesSubs.TabIndex = 0;
             this.lstvwGamesSubs.UseCompatibleStateImageBehavior = false;
@@ -206,12 +203,17 @@
             // clmSize
             // 
             this.clmSize.Text = "Size";
-            this.clmSize.Width = 98;
+            this.clmSize.Width = 100;
+            // 
+            // clmType
+            // 
+            this.clmType.Text = "Type";
+            this.clmType.Width = 100;
             // 
             // clmHost
             // 
             this.clmHost.Text = "Host";
-            this.clmHost.Width = 98;
+            this.clmHost.Width = 100;
             // 
             // menuGamesSubs
             // 
@@ -234,6 +236,68 @@
             this.imglstGamesSubs.ImageSize = new System.Drawing.Size(16, 16);
             this.imglstGamesSubs.TransparentColor = System.Drawing.Color.Transparent;
             // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.chkOnline);
+            this.panel3.Controls.Add(this.chkOffline);
+            this.panel3.Controls.Add(this.chkLan);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel3.Location = new System.Drawing.Point(0, 307);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(529, 52);
+            this.panel3.TabIndex = 2;
+            // 
+            // chkOnline
+            // 
+            this.chkOnline.AutoSize = true;
+            this.chkOnline.Enabled = false;
+            this.chkOnline.Location = new System.Drawing.Point(122, 6);
+            this.chkOnline.Name = "chkOnline";
+            this.chkOnline.Size = new System.Drawing.Size(56, 17);
+            this.chkOnline.TabIndex = 0;
+            this.chkOnline.Text = "Online";
+            this.toolTip1.SetToolTip(this.chkOnline, "(The internet) Let\'s play online!");
+            this.chkOnline.UseVisualStyleBackColor = true;
+            // 
+            // chkOffline
+            // 
+            this.chkOffline.AutoSize = true;
+            this.chkOffline.ForeColor = System.Drawing.Color.Red;
+            this.chkOffline.Location = new System.Drawing.Point(7, 6);
+            this.chkOffline.Name = "chkOffline";
+            this.chkOffline.Size = new System.Drawing.Size(56, 17);
+            this.chkOffline.TabIndex = 0;
+            this.chkOffline.Text = "Offline";
+            this.toolTip1.SetToolTip(this.chkOffline, "(Offline) This might be illegal... Meow~");
+            this.chkOffline.UseVisualStyleBackColor = true;
+            this.chkOffline.CheckedChanged += new System.EventHandler(this.chkOffline_CheckedChanged);
+            // 
+            // chkLan
+            // 
+            this.chkLan.AutoSize = true;
+            this.chkLan.Checked = true;
+            this.chkLan.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkLan.Location = new System.Drawing.Point(69, 6);
+            this.chkLan.Name = "chkLan";
+            this.chkLan.Size = new System.Drawing.Size(47, 17);
+            this.chkLan.TabIndex = 0;
+            this.chkLan.Text = "LAN";
+            this.toolTip1.SetToolTip(this.chkLan, "(Local Area Network) Let\'s play with your friends over LAN!");
+            this.chkLan.UseVisualStyleBackColor = true;
+            this.chkLan.CheckedChanged += new System.EventHandler(this.chkLan_CheckedChanged);
+            // 
+            // webBrowser1
+            // 
+            this.webBrowser1.Location = new System.Drawing.Point(400, 309);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser1.Name = "webBrowser1";
+            this.webBrowser1.ScriptErrorsSuppressed = true;
+            this.webBrowser1.Size = new System.Drawing.Size(20, 20);
+            this.webBrowser1.TabIndex = 1;
+            this.webBrowser1.Visible = false;
+            this.webBrowser1.WebBrowserShortcutsEnabled = false;
+            this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.BrowserDocumentCompleted);
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -242,9 +306,9 @@
             this.toolStripStatusLabel3,
             this.toolStripStatusLabel5,
             this.lblVersion});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 388);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 415);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(609, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(751, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -257,7 +321,7 @@
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(361, 17);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(507, 17);
             this.toolStripStatusLabel2.Spring = true;
             // 
             // toolStripStatusLabel3
@@ -277,8 +341,8 @@
             // lblVersion
             // 
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(50, 17);
-            this.lblVersion.Text = "V 0.0.0.0";
+            this.lblVersion.Size = new System.Drawing.Size(46, 17);
+            this.lblVersion.Text = "Version";
             // 
             // menuStrip1
             // 
@@ -287,7 +351,7 @@
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(609, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(751, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -307,22 +371,6 @@
             this.gamesToolStripMenuItem.Text = "Games";
             this.gamesToolStripMenuItem.Click += new System.EventHandler(this.gamesToolStripMenuItem_Click);
             // 
-            // panel2
-            // 
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 24);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(609, 364);
-            this.panel2.TabIndex = 3;
-            // 
-            // bgwrkLoadItem
-            // 
-            this.bgwrkLoadItem.WorkerReportsProgress = true;
-            this.bgwrkLoadItem.WorkerSupportsCancellation = true;
-            this.bgwrkLoadItem.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwrkLoadItem_DoWork);
-            this.bgwrkLoadItem.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgwrkLoadItem_ProgressChanged);
-            this.bgwrkLoadItem.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwrkLoadItem_RunWorkerCompleted);
-            // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -338,11 +386,27 @@
             this.checkForUupdatesToolStripMenuItem.Text = "Check for Updates";
             this.checkForUupdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUupdatesToolStripMenuItem_Click);
             // 
+            // panel2
+            // 
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 24);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(751, 391);
+            this.panel2.TabIndex = 3;
+            // 
+            // bgwrkLoadItem
+            // 
+            this.bgwrkLoadItem.WorkerReportsProgress = true;
+            this.bgwrkLoadItem.WorkerSupportsCancellation = true;
+            this.bgwrkLoadItem.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwrkLoadItem_DoWork);
+            this.bgwrkLoadItem.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgwrkLoadItem_ProgressChanged);
+            this.bgwrkLoadItem.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwrkLoadItem_RunWorkerCompleted);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(609, 410);
+            this.ClientSize = new System.Drawing.Size(751, 437);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.menuStrip1);
@@ -361,6 +425,8 @@
             this.splitContainer1.ResumeLayout(false);
             this.menuGames.ResumeLayout(false);
             this.menuGamesSubs.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -402,6 +468,12 @@
         private System.Windows.Forms.ColumnHeader clmHost;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem checkForUupdatesToolStripMenuItem;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.CheckBox chkOffline;
+        private System.Windows.Forms.CheckBox chkLan;
+        private System.Windows.Forms.CheckBox chkOnline;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ColumnHeader clmType;
     }
 }
 
