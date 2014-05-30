@@ -258,6 +258,7 @@
             this.chkOnline.Text = "Online";
             this.toolTip1.SetToolTip(this.chkOnline, "(The internet) Let\'s play online!");
             this.chkOnline.UseVisualStyleBackColor = true;
+            this.chkOnline.CheckedChanged += new System.EventHandler(this.chkOnline_CheckedChanged);
             // 
             // chkOffline
             // 

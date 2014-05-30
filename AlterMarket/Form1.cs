@@ -427,89 +427,17 @@ namespace AlterMarket
 
         private void chkOffline_CheckedChanged(object sender, EventArgs e)
         {
-            if (chkOffline.Checked)
-            {
-                // Scan through the collection of items.
-                foreach (var game in Collections.ListGames)
-                {
-                    // Only add the items of the currently selected item.
-                    if (game.Name == lstvGames.SelectedItems[0].Text)
-                    {
-                        // Only continue if there are subs, else cancel (saves time and errors).
-                        if (game.Subs == null || game.Subs.Count == 0) continue;
-                        // Scan through all the subs of the clicked game.
-                        for (int index = 0; index < game.Subs.Count; index++)
-                        {
-                            Collections.Subs subItem = game.Subs[index];
-                            if (subItem.Type == "Offline")
-                            {
-                                // The sub we are adding.
-                                Collections.Subs sub = game.Subs[index];
-                                // Create the ListViewItem.
-                                ListViewItem lvitem = new ListViewItem();
+            LoadGamesSubs();
+        }
 
-                                // Set the ListViewItem's text.
-                                lvitem.Text = sub.Name;
-                                // Add the ListViewItem's first subitem.
-                                lvitem.SubItems.Add(ByteCountFormatter.FormatBytes((long) sub.Size));
-                                // Add the ListViewItem's second subitem.
-                                lvitem.SubItems.Add(sub.Type);
-                                // Add the ListViewItem's second subitem.
-                                lvitem.SubItems.Add(sub.Host);
-                                // Tell where to put the image.
-                                lvitem.ImageIndex = index;
+        private void chkLan_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadGamesSubs();
+        }
 
-                                // Check if the sub contains an icon.
-                                if (!string.IsNullOrEmpty(sub.Icon))
-                                {
-                                    // Download and add the image for the imagelist.
-                                    using (WebClient webClient = new WebClient())
-                                    {
-                                        byte[] bitmapData = webClient.DownloadData(sub.Icon);
-
-                                        // Bitmap data => bitmap => resized bitmap.
-                                        using (MemoryStream memoryStream = new MemoryStream(bitmapData))
-                                        using (Bitmap bitmap = new Bitmap(memoryStream))
-                                        using (Bitmap resizedBitmap = new Bitmap(bitmap, 16, 16))
-                                        {
-                                            //Logic.Collections.LvGamesSubsCollection.Add(lvitem);
-                                            imglstGamesSubs.Images.Add(resizedBitmap);
-                                        }
-                                    }
-                                }
-
-                                // Add the items to the ListView.
-                                lstvwGamesSubs.Items.Add(lvitem);
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                // Scan through the collection of items.
-                foreach (var game in Collections.ListGames)
-                {
-                    // Only add the items of the currently selected item.
-                    if (game.Name == lstvGames.SelectedItems[0].Text)
-                    {
-                        // Only continue if there are subs, else cancel (saves time and errors).
-                        if (game.Subs == null || game.Subs.Count == 0) continue;
-                        // Scan through all the subs of the clicked game.
-                        for (int index = 0; index < game.Subs.Count; index++)
-                        {
-                            foreach (ListViewItem gameSub in lstvwGamesSubs.Items)
-                            {
-                                if (gameSub.SubItems[2].Text == "Offline")
-                                {
-                                    // Add the items to the ListView.
-                                    lstvwGamesSubs.Items.Remove(gameSub);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+        private void chkOnline_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadGamesSubs();
         }
 
         /// <summary>
@@ -533,94 +461,6 @@ namespace AlterMarket
                     return false;
                 }
                 throw;
-            }
-        }
-
-        private void chkLan_CheckedChanged(object sender, EventArgs e)
-        {
-
-            if (chkLan.Checked)
-            {
-                // Scan through the collection of items.
-                foreach (var game in Collections.ListGames)
-                {
-                    // Only add the items of the currently selected item.
-                    if (game.Name == lstvGames.SelectedItems[0].Text)
-                    {
-                        // Only continue if there are subs, else cancel (saves time and errors).
-                        if (game.Subs == null || game.Subs.Count == 0) continue;
-                        // Scan through all the subs of the clicked game.
-                        for (int index = 0; index < game.Subs.Count; index++)
-                        {
-                            Collections.Subs subItem = game.Subs[index];
-                            if (subItem.Type == "LAN")
-                            {
-                                // The sub we are adding.
-                                Collections.Subs sub = game.Subs[index];
-                                // Create the ListViewItem.
-                                ListViewItem lvitem = new ListViewItem();
-
-                                // Set the ListViewItem's text.
-                                lvitem.Text = sub.Name;
-                                // Add the ListViewItem's first subitem.
-                                lvitem.SubItems.Add(ByteCountFormatter.FormatBytes((long)sub.Size));
-                                // Add the ListViewItem's second subitem.
-                                lvitem.SubItems.Add(sub.Type);
-                                // Add the ListViewItem's second subitem.
-                                lvitem.SubItems.Add(sub.Host);
-                                // Tell where to put the image.
-                                lvitem.ImageIndex = index;
-
-                                // Check if the sub contains an icon.
-                                if (!string.IsNullOrEmpty(sub.Icon))
-                                {
-                                    // Download and add the image for the imagelist.
-                                    using (WebClient webClient = new WebClient())
-                                    {
-                                        byte[] bitmapData = webClient.DownloadData(sub.Icon);
-
-                                        // Bitmap data => bitmap => resized bitmap.
-                                        using (MemoryStream memoryStream = new MemoryStream(bitmapData))
-                                        using (Bitmap bitmap = new Bitmap(memoryStream))
-                                        using (Bitmap resizedBitmap = new Bitmap(bitmap, 16, 16))
-                                        {
-                                            //Logic.Collections.LvGamesSubsCollection.Add(lvitem);
-                                            imglstGamesSubs.Images.Add(resizedBitmap);
-                                        }
-                                    }
-                                }
-
-                                // Add the items to the ListView.
-                                lstvwGamesSubs.Items.Add(lvitem);
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                // Scan through the collection of items.
-                foreach (var game in Collections.ListGames)
-                {
-                    // Only add the items of the currently selected item.
-                    if (game.Name == lstvGames.SelectedItems[0].Text)
-                    {
-                        // Only continue if there are subs, else cancel (saves time and errors).
-                        if (game.Subs == null || game.Subs.Count == 0) continue;
-                        // Scan through all the subs of the clicked game.
-                        for (int index = 0; index < game.Subs.Count; index++)
-                        {
-                            foreach (ListViewItem gameSub in lstvwGamesSubs.Items)
-                            {
-                                if (gameSub.SubItems[2].Text == "LAN")
-                                {
-                                    // Add the items to the ListView.
-                                    lstvwGamesSubs.Items.Remove(gameSub);
-                                }
-                            }
-                        }
-                    }
-                }
             }
         }
     }
