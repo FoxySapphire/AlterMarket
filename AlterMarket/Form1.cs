@@ -306,9 +306,10 @@ namespace AlterMarket
             {
                 Console.WriteLine("Adding Subitems");
                 // Clear the items collection to prevent double items.
-                lstvwGamesSubs.Items.Clear();
+                lstvGames.Invoke(new MethodInvoker(delegate { lstvwGamesSubs.Items.Clear(); }));
+
                 // Clear the imagelist to prevent double images.
-                imglstGamesSubs.Images.Clear();
+                lstvGames.Invoke(new MethodInvoker(delegate { imglstGamesSubs.Images.Clear(); }));
 
                 ListViewItem lvitemGame = new ListViewItem();
                 lstvGames.Invoke(new MethodInvoker(delegate { lvitemGame = lstvGames.SelectedItems[0]; }));
