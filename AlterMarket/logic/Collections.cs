@@ -23,6 +23,7 @@ namespace AlterMarket.logic
             public string Name { get; set; }
             public string Icon { get; set; }    
             public string Description { get; set; }
+            public bool Show { get; set; }
             public List<Subs> Subs { get; set; }
         }
 

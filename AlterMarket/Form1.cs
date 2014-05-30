@@ -69,7 +69,14 @@ namespace AlterMarket
             // Show the appliaction version at the bottom left.
             lblVersion.Text = Application.ProductVersion;
 
-            bgwrkLoadItem.RunWorkerAsync();
+            try
+            {
+                bgwrkLoadItem.RunWorkerAsync();
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
         }
 
         private void lstvGames_SelectedIndexChanged(object sender, EventArgs e)
@@ -89,7 +96,14 @@ namespace AlterMarket
 
         private void gamesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            bgwrkLoadItem.RunWorkerAsync();
+            try
+            {
+                bgwrkLoadItem.RunWorkerAsync();
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
         }
 
         private void downloadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -252,15 +266,18 @@ namespace AlterMarket
                         imglstGames.Images.Add(Resources.not_found);
                     }
 
-                    if (lstvGames.InvokeRequired)
+                    if (game.Show)
                     {
-                        // This let's use access the UI thread to prevent a crash.
-                        lstvGames.Invoke(new MethodInvoker(delegate { lstvGames.Items.Add(lvitem); }));
-                    }
-                    else
-                    {
-                        // Add the listview item if we aren't on a seperate thread (I don't think this will ever happen as we're running this via a backgroundworker).
-                        lstvGames.Items.Add(lvitem);
+                        if (lstvGames.InvokeRequired)
+                        {
+                            // This let's use access the UI thread to prevent a crash.
+                            lstvGames.Invoke(new MethodInvoker(delegate { lstvGames.Items.Add(lvitem); }));
+                        }
+                        else
+                        {
+                            // Add the listview item if we aren't on a seperate thread (I don't think this will ever happen as we're running this via a backgroundworker).
+                            lstvGames.Items.Add(lvitem);
+                        }
                     }
                     lblItems.Text = lstvGames.Items.Count + " Items";
                 }
