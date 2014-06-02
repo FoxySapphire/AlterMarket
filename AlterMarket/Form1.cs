@@ -10,6 +10,7 @@ using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AlterMarket.logic;
@@ -22,7 +23,7 @@ namespace AlterMarket
 {
     public partial class Form1 : Form
     {
-        int _selectedGame;
+        ListViewItem _selectedGame;
 
         public Form1()
         {
@@ -89,7 +90,7 @@ namespace AlterMarket
             int intselectedindex = lstvGames.SelectedIndices[0];
             if (intselectedindex >= 0)
             {
-                _selectedGame = lstvGames.Items[intselectedindex].Index;
+                _selectedGame = lstvGames.Items[intselectedindex];
             }
             bgwrkLoadItemSub.RunWorkerAsync();
             //LoadGamesSubs();
@@ -114,7 +115,7 @@ namespace AlterMarket
             for (int index = 0; index < Collections.ListGames.Count; index++)
             {
                 var game = Collections.ListGames[index];
-                if (index == _selectedGame)
+                if (index == _selectedGame.Index)
                 {
                     // Only continue when there are sub items (never know, just to prevent random errors).
                     if (game.Subs == null) continue;
@@ -129,13 +130,22 @@ namespace AlterMarket
                             // Check if the url contains mediafire.com.
                             if (sub.Download.Contains("mediafire.com"))
                             {
-                                MessageBox.Show("Please have patience, but if nothing happens, try downloading your file again.", Application.ProductName);
+                                //MessageBox.Show("Please have patience, but if nothing happens, try downloading your file again.", Application.ProductName);
                                 // Set the user agent to chrome (to prevent captcha as much as possible).
                                 webBrowser1.Navigate(sub.Download, null, null, "User-Agent: Chrome/27.0.1453.94");
                                 return;
                             }
-                            // Initialize the download.
-                            Process.Start(sub.Download);
+
+                            if (sub.Host == "Magnet Link")
+                            {
+                                MessageBox.Show("Be sure to have a torrent client installed, else nothing will happen.", Application.ProductName);
+                                Process.Start(sub.Download);
+                            }
+                            else
+                            {
+                                // Initialize the download.
+                                FoxyDownloader.Start.Download(sub.Download, Environment.CurrentDirectory, sub.Name);
+                            }
                         }
                     }
                 }
@@ -163,7 +173,18 @@ namespace AlterMarket
 
                     // Send the html document so we can search for the download link.
                     string url = Mediafire.GetUrl(doc);
-                    Process.Start(url);
+                    File.WriteAllText(Environment.CurrentDirectory + "\\temp.html", webBrowser1.Document.Body.Parent.OuterHtml, Encoding.GetEncoding(webBrowser1.Document.Encoding));
+
+                    if (!string.IsNullOrEmpty(url))
+                    {
+                        FoxyDownloader.Start.Download(url, Environment.CurrentDirectory, lstvwGamesSubs.Items[0].Text);
+                    }
+                    else
+                    {
+                        MessageBox.Show("There's a captcha that needs to be resolved, please navigate to mediafire and resolve the captcha in order to continue.", Application.ProductName);
+                        ResolveCaptcha resolveCaptcha = new ResolveCaptcha(e.Url);
+                        resolveCaptcha.ShowDialog();
+                    }
                 }
             }
         }
@@ -280,7 +301,14 @@ namespace AlterMarket
                             lstvGames.Items.Add(lvitem);
                         }
                     }
-                    lblItems.Text = lstvGames.Items.Count + " Items";
+                    if (lstvGames.Items.Count == 1)
+                    {
+                        lblItems.Text = lstvGames.Items.Count + " Item";
+                    }
+                    else
+                    {
+                        lblItems.Text = lstvGames.Items.Count + " Items";
+                    }
                 }
             }
             catch (Exception exception)
@@ -300,6 +328,11 @@ namespace AlterMarket
         /// </summary>
         private void LoadGamesSubs()
         {
+            if (_selectedGame == null)
+            {
+                return;
+            }
+
             #region Add the subitems to the ListView
 
             try
@@ -312,7 +345,8 @@ namespace AlterMarket
                 lstvGames.Invoke(new MethodInvoker(delegate { imglstGamesSubs.Images.Clear(); }));
 
                 ListViewItem lvitemGame = new ListViewItem();
-                lstvGames.Invoke(new MethodInvoker(delegate { lvitemGame = lstvGames.SelectedItems[0]; }));
+                //lstvGames.Invoke(new MethodInvoker(delegate { lvitemGame = lstvGames.SelectedItems[0]; }));
+                lvitemGame = _selectedGame;
                 // Scan through the collection of items.
                 foreach (var game in Collections.ListGames)
                 {
@@ -359,6 +393,7 @@ namespace AlterMarket
                                 }
                             }
 
+                            lstvGames.Invoke(new MethodInvoker(delegate { lstvwGamesSubs.BeginUpdate(); }));
                             if (lvitem.SubItems[2].Text == "Offline" && chkOffline.Checked)
                             {
                                 // Add the items to the ListView.
@@ -375,6 +410,7 @@ namespace AlterMarket
                                 // Add the items to the ListView.
                                 lstvGames.Invoke(new MethodInvoker(delegate { lstvwGamesSubs.Items.Add(lvitem); }));
                             }
+                            lstvGames.Invoke(new MethodInvoker(delegate { lstvwGamesSubs.EndUpdate(); }));
                         }
                     }
                 }

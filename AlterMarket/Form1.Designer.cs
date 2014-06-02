@@ -125,7 +125,6 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.lstvwGamesSubs);
             this.splitContainer1.Panel2.Controls.Add(this.panel3);
-            this.splitContainer1.Panel2.Controls.Add(this.webBrowser1);
             this.splitContainer1.Size = new System.Drawing.Size(737, 359);
             this.splitContainer1.SplitterDistance = 204;
             this.splitContainer1.TabIndex = 0;
@@ -191,7 +190,7 @@
             this.lstvwGamesSubs.Location = new System.Drawing.Point(0, 0);
             this.lstvwGamesSubs.MultiSelect = false;
             this.lstvwGamesSubs.Name = "lstvwGamesSubs";
-            this.lstvwGamesSubs.Size = new System.Drawing.Size(529, 307);
+            this.lstvwGamesSubs.Size = new System.Drawing.Size(529, 335);
             this.lstvwGamesSubs.SmallImageList = this.imglstGamesSubs;
             this.lstvwGamesSubs.TabIndex = 0;
             this.lstvwGamesSubs.UseCompatibleStateImageBehavior = false;
@@ -242,11 +241,12 @@
             // 
             this.panel3.Controls.Add(this.chkOnline);
             this.panel3.Controls.Add(this.chkOffline);
+            this.panel3.Controls.Add(this.webBrowser1);
             this.panel3.Controls.Add(this.chkLan);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 307);
+            this.panel3.Location = new System.Drawing.Point(0, 335);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(529, 52);
+            this.panel3.Size = new System.Drawing.Size(529, 24);
             this.panel3.TabIndex = 2;
             // 
             // chkOnline
@@ -260,11 +260,14 @@
             this.chkOnline.Text = "Online";
             this.toolTip1.SetToolTip(this.chkOnline, "(The internet) Let\'s play online!");
             this.chkOnline.UseVisualStyleBackColor = true;
+            this.chkOnline.Visible = false;
             this.chkOnline.CheckedChanged += new System.EventHandler(this.chkOnline_CheckedChanged);
             // 
             // chkOffline
             // 
             this.chkOffline.AutoSize = true;
+            this.chkOffline.Checked = true;
+            this.chkOffline.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkOffline.ForeColor = System.Drawing.Color.Red;
             this.chkOffline.Location = new System.Drawing.Point(7, 6);
             this.chkOffline.Name = "chkOffline";
@@ -291,7 +294,7 @@
             // 
             // webBrowser1
             // 
-            this.webBrowser1.Location = new System.Drawing.Point(400, 309);
+            this.webBrowser1.Location = new System.Drawing.Point(506, 1);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.ScriptErrorsSuppressed = true;
@@ -371,7 +374,7 @@
             // 
             this.gamesToolStripMenuItem.Name = "gamesToolStripMenuItem";
             this.gamesToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.gamesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.gamesToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.gamesToolStripMenuItem.Text = "Games";
             this.gamesToolStripMenuItem.Click += new System.EventHandler(this.gamesToolStripMenuItem_Click);
             // 
