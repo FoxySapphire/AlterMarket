@@ -63,21 +63,9 @@ namespace AlterMarket
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Updater updater = new Updater();
-            updater.UpdateUrl = "http://darkshadw.com/game_patcher/UpdateInfo.dat";
-            updater.CheckForUpdates(false);
-
-            // Show the appliaction version at the bottom left.
-            lblVersion.Text = Application.ProductVersion;
-
-            try
-            {
-                bgwrkLoadItem.RunWorkerAsync();
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-            }
+            menuItem1.Enabled = false;
+            panel1.Visible = false;
+            lblLoading.Text = "Checking for updates...";
         }
 
         private void lstvGames_SelectedIndexChanged(object sender, EventArgs e)
@@ -177,7 +165,14 @@ namespace AlterMarket
 
                     if (!string.IsNullOrEmpty(url))
                     {
-                        FoxyDownloader.Start.Download(url, Environment.CurrentDirectory, lstvwGamesSubs.Items[0].Text);
+                        Uri uri = new Uri(url);
+                        var response = (HttpWebRequest)WebRequest.Create(uri.AbsoluteUri);
+                        response.Method = "GET";
+
+                        var result = (HttpWebResponse)response.GetResponse();
+                        string fileName = Path.GetFileName(result.ResponseUri.AbsoluteUri);
+
+                        FoxyDownloader.Start.Download(url, Environment.CurrentDirectory, fileName);
                     }
                     else
                     {
@@ -311,7 +306,7 @@ namespace AlterMarket
                     }
                 }
             }
-            catch (Exception exception)
+            catch (Exception)
             {
 
             }
@@ -415,7 +410,7 @@ namespace AlterMarket
                     }
                 }
             }
-            catch (Exception exception)
+            catch (Exception)
             {
 
             }
@@ -462,7 +457,8 @@ namespace AlterMarket
 
         private void bgwrkLoadItem_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-
+            menuItem1.Enabled = true;
+            panel1.Visible = true;
         }
 
         #endregion Backgroundworker for the listview with subs
@@ -486,13 +482,32 @@ namespace AlterMarket
 
         #endregion
 
+        private void bgwrkCheckForUpdates_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Updater updater = new Updater();
+            updater.UpdateUrl = "http://darkshadw.com/game_patcher/UpdateInfo.dat";
+            updater.CheckForUpdates(false);
+        }
+
+        private void bgwrkCheckForUpdates_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+
+        }
+
+        private void bgwrkCheckForUpdates_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            menuItem1.Enabled = false;
+            panel1.Visible = false;
+            lblLoading.Text = "Retrieving items...";
+            bgwrkLoadItem.RunWorkerAsync();
+        }
+
+        #endregion
 
         private void lstvGames_SizeChanged(object sender, EventArgs e)
         {
             lstvGames.Columns[0].Width = -2;
         }
-
-        #endregion
 
         private void checkForUupdatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -543,6 +558,43 @@ namespace AlterMarket
         private void lblMadeBy_Click(object sender, EventArgs e)
         {
             Process.Start("http://steamcommunity.com/id/FoxySapphire");
+        }
+
+        private void menuItem1_Click(object sender, EventArgs e)
+        {
+            panel1.Visible = false;
+            lblLoading.Text = "Retrieving items...";
+
+            try
+            {
+                bgwrkLoadItem.RunWorkerAsync();
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
+        }
+
+        private void menuItem3_Click(object sender, EventArgs e)
+        {
+            Updater updater = new Updater();
+            updater.UpdateUrl = "http://darkshadw.com/game_patcher/UpdateInfo.dat";
+            updater.CheckForUpdates(true);
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            // Show the appliaction version at the bottom left.
+            lblVersion.Text = Application.ProductVersion;
+
+            try
+            {
+                bgwrkLoadItem.RunWorkerAsync();
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
         }
     }
 
